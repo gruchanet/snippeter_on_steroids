@@ -3,21 +3,22 @@
 
 
 
->     { "JSON_team": {
+>     { 
+>       "JSON_team": {
 >         "member": {
->           "name": "Dariusz Gafka"
+>           "name": "Dariusz Gafka",
 >           "github_acc": "dgafka"
 >         },
 >         "member": {
->           "name": "Daniel Banecki"
+>           "name": "Daniel Banecki",
 >           "github_acc": null
 >         },
 >         "member": {
->           "name": "Dawid Zawadzki"
+>           "name": "Dawid Zawadzki",
 >           "github_acc": "ghost717"
 >         },
 >         "member": {
->           "name": "Roman Józwiak"
+>           "name": "Roman Józwiak",
 >           "github_acc": "gruchanet"
 >         }
 >       }
