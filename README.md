@@ -11,7 +11,7 @@
 >         },
 >         "member": {
 >           "name": "Daniel Banecki",
->           "github_acc": null
+>           "github_acc": "Dejniel"
 >         },
 >         "member": {
 >           "name": "Dawid Zawadzki",
