@@ -2,6 +2,8 @@
 ####by JSON team.
 
 
+<pre>Termin realizacji projektu upływa <b>23.05</b></pre>
+
 
 ><pre>
      { 
