@@ -1,16 +1,37 @@
 <% title 'About' %>
 
 <div class="page-header">
-    <h1 id="about-header">ABOUT</h1>
+    <h1 id="about-header">Authors</h1>
 </div>
 <div class="jumbotron">
-      <%= raw Pygments.highlight('
+  <div class="highlight">
+    <pre id="json-team">
       {
-        "github_credentials": {
-            "nickname": "gruchanet",
-            "email": "grucha.net@gmail.com"
+        "JSON_team": {
+          "member": {
+            "name": "Dariusz Gafka",
+            "github_acc": "<b><a href="https://github.com/dgafka">dgafka</a></b>"
+          },
+          "member": {
+            "name": "Daniel Banecki",
+            "github_acc": "<b><a href="https://github.com/Dejniel">Dejniel</a></b>"
+          },
+          "member": {
+            "name": "Dawid Zawadzki",
+            "github_acc": "<b><a href="https://github.com/ghost717">ghost717</a></b>"
+          },
+          "member": {
+            "name": "Roman Józwiak",
+            "github_acc": "<b><a href="https://github.com/gruchanet">gruchanet</a></b>"
+          }
         }
       }
-      ', lexer: 'json') %>
-    <p class="bottom-info page-header">Find me on <%= image_tag 'github_ruby_mini.png', :class => 'github-logo', :alt => 'GitHub.com', :onclick => 'window.open("https://github.com/gruchanet")' %></p>
+    </pre>
+  </div>
+    <p class="bottom-info page-header">
+      Find us on
+      <a href="https://github.com/gruchanet/snippeter_on_steroids" target="_blank">
+        <%= image_tag 'github_ruby_mini.png', :class => 'github-logo', :alt => 'GitHub.com' %>
+      </a>
+    </p>
 </div>
