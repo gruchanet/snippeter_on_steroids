@@ -3,23 +3,25 @@
 
 
 
->     { 
->       "JSON_team": {
->         "member": {
->           "name": "Dariusz Gafka",
->           "github_acc": "dgafka"
->         },
->         "member": {
->           "name": "Daniel Banecki",
->           "github_acc": "Dejniel"
->         },
->         "member": {
->           "name": "Dawid Zawadzki",
->           "github_acc": "ghost717"
->         },
->         "member": {
->           "name": "Roman Józwiak",
->           "github_acc": "gruchanet"
->         }
->       }
->     }
+><pre>
+     { 
+       "JSON_team": {
+         "member": {
+           "name": "Dariusz Gafka",
+           "github_acc": "<b><a href="https://github.com/dgafka">dgafka</a></b>"
+         },
+         "member": {
+           "name": "Daniel Banecki",
+           "github_acc": "<b><a href="https://github.com/Dejniel">Dejniel</a></b>"
+         },
+         "member": {
+           "name": "Dawid Zawadzki",
+           "github_acc": "<b><a href="https://github.com/ghost717">ghost717</a></b>"
+         },
+         "member": {
+           "name": "Roman Józwiak",
+           "github_acc": "<b><a href="https://github.com/gruchanet">gruchanet</a></b>"
+         }
+       }
+     }
+></pre>
