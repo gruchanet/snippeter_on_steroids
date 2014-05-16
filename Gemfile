@@ -60,8 +60,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'guard-rspec'
-  gem 'capybara'
+  # Automated test running
+  gem 'guard-rspec', '~> 4.2.9'
+  # Testing tool for simulating user interaction with website
+  gem 'capybara', '~> 2.2.1'
+  # Automatic & easier definition loading
+  gem 'factory_girl_rails', '~> 4.4.1'
 end
 
 group :production do
