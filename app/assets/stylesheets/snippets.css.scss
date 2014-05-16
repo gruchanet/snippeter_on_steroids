@@ -176,6 +176,14 @@ pre, textarea {
   font-family: verdana, sans-serif;
 }
 
+#snippets-table {
+  #snippets {
+    .page-delimiter {
+      display: none;
+    }
+  }
+}
+
 .snippet-showcase {
   display: table-row;
 }
