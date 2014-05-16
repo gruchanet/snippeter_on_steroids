@@ -1,0 +1,23 @@
+<tr class="row-link" data-link="<%= snippet_path(snippet) %>">
+  <td class="toggle-notion"><a class="collapser collapsed" data-toggle="collapse" data-target="#snippet-<%= snippet.id %>"><span class="glyphicon glyphicon-circle-arrow-up"></span></a></td>
+  <td class="lang-notion"><%= snippet.lang.name %></td>
+  <td><%= snippet.description %></td>
+  <td><%= snippet.updated_at.in_time_zone('Warsaw').to_formatted_s(:rfc822) %></td>
+  <td class="centered">
+    <%= link_to edit_snippet_path(snippet), class: 'btn btn-edit fullsized' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </td>
+  <td class="centered">
+    <%= link_to snippet, method: :delete, data: { confirm: 'Do you really want to delete this snippet?' }, class: 'btn btn-remove fullsized' do %>
+        <span class="glyphicon glyphicon-remove"></span>
+    <% end %>
+  </td>
+</tr>
+<tr class="snippet-showcase">
+  <td colspan="6" class="snippet-notion">
+    <div id="snippet-<%= snippet.id %>" class="snippet-container collapse out">
+      <%= raw Pygments.highlight(snippet.snippet, lexer: snippet.lang.value.downcase) %>
+    </div>
+  </td>
+</tr>

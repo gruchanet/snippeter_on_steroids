@@ -1,0 +1,41 @@
+<% title 'Search snippets' %>
+
+<div class="page-header">
+  <h1>Search snippets</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <form action="<%= snippets_path %>" method="get">
+    <dt>Snippet:</dt>
+    <dd><%= text_field_tag 'snippet', nil, :placeholder => 'Snippet contains...', :class => 'form-control' %></dd>
+
+    <dt>Lang:</dt>
+    <dd><%= collection_select :lang, :id, Lang.order(:order_type, :name), :id, :name,
+                                {:prompt => '-- None selected --'},
+                                {:name => 'lang_id', :class => 'form-control'} %></dd>
+
+    <dt>Description:</dt>
+    <dd><%= text_field_tag 'description', nil, :placeholder => 'Description contains...', :class => 'form-control' %></dd>
+
+    <!--<dt>Creation date:</dt>-->
+    <!--<dd></dd>-->
+
+    <!--<dt>Last modification:</dt>-->
+    <!--<dd></dd>-->
+    <dt>Search by</dt>
+    <dd>
+      <!-- TODO: `button` that pass get params to `snippets#index`-->
+      <%= button_tag(type: 'submit', :class => 'btn btn-primary') do %>
+          <span class="glyphicon glyphicon-search"></span>
+          <%= @filter_button_text %>
+      <% end %>
+    </dd>
+  </form>
+</dl>
+
+<%= javascript_tag do %>
+    $(document).ready(function () {
+        // Enable Select2 on 'lang' combobox
+        $("dd").find("select#lang_id").select2();
+    });
+<% end %>

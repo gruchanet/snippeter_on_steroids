@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import schemaLocation="definedTypes.xsd" namespace="http://www.w3.org/2001/XMLSchema"/>
+
+  <xs:complexType name="blocked_until">
+    <xs:all minOccurs="0">
+      <xs:element name="date" type="date"/>
+      <xs:element name="time" type="time"/>
+    </xs:all>
+    <xs:attribute name="active" type="boolean" default="false"/>
+  </xs:complexType>
+
+  <xs:complexType name="account">
+    <xs:sequence>
+      <xs:element name="login" type="loginST"/>
+      <xs:element name="password" type="password"/>
+      <xs:element name="rest_access" type="rest_accessST" default="Player"/>
+      <xs:element name="email" type="emailST"/>
+      <xs:element name="recovery_key" type="recovery_key"/>
+      <xs:element name="creation_date" type="date"/>
+      <xs:element name="creation_time" type="time"/>
+      <xs:element name="warn_level" type="warn_level"/>
+      <xs:element name="blocked_until" type="blocked_until"/>
+      <xs:element name="last_ip" type="ipST"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="unique_id"/>
+  </xs:complexType>
+
+  <xs:complexType name="skills">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="skill" type="skill"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="items">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="item" type="item"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="character">
+    <xs:sequence>
+      <xs:element name="health" type="integer"/>
+      <xs:element name="max_health" type="integer"/>
+      <xs:choice>
+        <xs:element name="mana" type="integer"/>
+        <xs:element name="rage" type="integer"/>
+      </xs:choice>
+      <xs:choice>
+        <xs:element name="max_mana" type="integer"/>
+        <xs:element name="max_rage" type="integer"/>
+      </xs:choice>
+      <xs:element name="level" type="integer"/>
+      <xs:element name="experience" type="integer"/>
+      <xs:element name="strength" type="integer"/>
+      <xs:element name="agility" type="integer"/>
+      <xs:element name="intelligence" type="integer"/>
+      <xs:element name="skills" type="skills"/>
+      <xs:element name="equipped" type="items"/>
+      <xs:element name="items" type="items"/>
+      <xs:element name="skins" type="value_list"/>
+      <xs:element name="skin_id" type="unique_id"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="unique_id"/>
+    <xs:attribute name="class" type="classST"/>
+    <xs:attribute name="gender" type="genderST"/>
+  </xs:complexType>
+
+  <xs:complexType name="character_list">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="character" type="character"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="account_info">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="account" type="account"/>
+        <xs:element name="character_list" type="character_list"/>
+      </xs:sequence>
+      <xs:attribute name="exported" type="boolean" fixed="true"/>
+    </xs:complexType>
+    <xs:key name="unique_account">
+      <xs:selector xpath="account"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:unique name="unique_character">
+      <xs:selector xpath="character_list/character"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+  </xs:element>
+
+</xs:schema>

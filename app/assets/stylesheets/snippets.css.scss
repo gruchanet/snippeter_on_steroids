@@ -1,0 +1,337 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+/* CUSTOM BUTTONS */
+.btn-add {
+    color: #ffffff !important;
+    background-color: #3F2BF0;
+    border-color: #2516B3;
+}
+
+.btn-add:hover,
+.btn-add:focus,
+.btn-add:active,
+.btn-add.active,
+.open .dropdown-toggle.btn-add {
+    color: #ffffff;
+    background-color: #1F39B8;
+    border-color: #2516B3;
+}
+
+.btn-add:active,
+.btn-add.active,
+.open .dropdown-toggle.btn-add {
+    background-image: none;
+}
+
+.btn-add.disabled,
+.btn-add[disabled],
+fieldset[disabled] .btn-add,
+.btn-add.disabled:hover,
+.btn-add[disabled]:hover,
+fieldset[disabled] .btn-add:hover,
+.btn-add.disabled:focus,
+.btn-add[disabled]:focus,
+fieldset[disabled] .btn-add:focus,
+.btn-add.disabled:active,
+.btn-add[disabled]:active,
+fieldset[disabled] .btn-add:active,
+.btn-add.disabled.active,
+.btn-add[disabled].active,
+fieldset[disabled] .btn-add.active {
+    background-color: #3F2BF0;
+    border-color: #2516B3;
+}
+
+.btn-add .badge {
+    color: #3F2BF0;
+    background-color: #ffffff;
+}
+
+.btn-edit {
+    color: #FFFFFF !important;
+    background-color: #1E9451;
+    border-color: #158A2A;
+}
+
+.btn-edit:hover,
+.btn-edit:focus,
+.btn-edit:active,
+.btn-edit.active,
+.open .dropdown-toggle.btn-edit {
+    color: #FFFFFF;
+    background-color: #13AB40;
+    border-color: #158A2A;
+}
+
+.btn-edit:active,
+.btn-edit.active,
+.open .dropdown-toggle.btn-edit {
+    background-image: none;
+}
+
+.btn-edit.disabled,
+.btn-edit[disabled],
+fieldset[disabled] .btn-edit,
+.btn-edit.disabled:hover,
+.btn-edit[disabled]:hover,
+fieldset[disabled] .btn-edit:hover,
+.btn-edit.disabled:focus,
+.btn-edit[disabled]:focus,
+fieldset[disabled] .btn-edit:focus,
+.btn-edit.disabled:active,
+.btn-edit[disabled]:active,
+fieldset[disabled] .btn-edit:active,
+.btn-edit.disabled.active,
+.btn-edit[disabled].active,
+fieldset[disabled] .btn-edit.active {
+    background-color: #1E9451;
+    border-color: #158A2A;
+}
+
+.btn-edit .badge {
+    color: #1E9451;
+    background-color: #FFFFFF;
+}
+
+.btn-remove {
+    color: #FFFFFF !important;
+    background-color: #9E3028;
+    border-color: #802818;
+}
+
+.btn-remove:hover,
+.btn-remove:focus,
+.btn-remove:active,
+.btn-remove.active,
+.open .dropdown-toggle.btn-remove {
+    color: #FFFFFF;
+    background-color: #A84224;
+    border-color: #802818;
+}
+
+.btn-remove:active,
+.btn-remove.active,
+.open .dropdown-toggle.btn-remove {
+    background-image: none;
+}
+
+.btn-remove.disabled,
+.btn-remove[disabled],
+fieldset[disabled] .btn-remove,
+.btn-remove.disabled:hover,
+.btn-remove[disabled]:hover,
+fieldset[disabled] .btn-remove:hover,
+.btn-remove.disabled:focus,
+.btn-remove[disabled]:focus,
+fieldset[disabled] .btn-remove:focus,
+.btn-remove.disabled:active,
+.btn-remove[disabled]:active,
+fieldset[disabled] .btn-remove:active,
+.btn-remove.disabled.active,
+.btn-remove[disabled].active,
+fieldset[disabled] .btn-remove.active {
+    background-color: #9E3028;
+    border-color: #802818;
+}
+
+.btn-remove .badge {
+    color: #9E3028;
+    background-color: #FFFFFF;
+}
+
+.btn-primary {
+    color: #FFFFFF !important;
+}
+
+
+/* OTHER STYLES */
+dd {
+    margin-bottom: 10px;
+}
+
+.row-link {
+    cursor: pointer;
+}
+
+.fullsized {
+    width: 90%;
+}
+
+.centered {
+    text-align: center;
+}
+
+.form-control-lang {
+  max-width: 170px;
+}
+
+pre {
+  font-size: 11pt;
+}
+
+pre, textarea {
+  font-family: verdana, sans-serif;
+}
+
+.snippet-showcase {
+  display: table-row;
+}
+
+.snippet-notion {
+  word-break: break-all !important;
+  word-wrap: break-word !important;
+  width: 500px;
+  max-width: 500px;
+}
+
+.snippet-container {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  word-wrap: break-word;
+  word-break: break-all;
+
+  @media (min-height: 901px) {
+    max-height: 750px;
+  }
+
+  @media (max-height: 900px) {
+    max-height: 700px;
+  }
+
+  @media (max-height: 768px) {
+    max-height: 500px;
+  }
+
+  @media (max-height: 640px) {
+    max-height: 400px;
+  }
+}
+
+.toggle-header, .toggle-notion, .snippet-showcase {
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.lang-header, .lang-notion {
+  @media (max-width: 449px) {
+    display: none; // text-indent: -9999px;
+  }
+}
+
+.date-header {
+  width: 220px;
+  max-width: 220px;
+}
+
+.button-header {
+  width: 100px;
+  max-width: 100px;
+
+  @media (max-width: 991px) {
+    width: 60px;
+  }
+
+  @media (max-width: 767px) {
+    width: 50px;
+  }
+}
+
+.toggle-notion {
+  text-align: center;
+  font-size: 18pt;
+  width: 50px;
+  max-width: 50px;
+}
+
+#static-pagination {
+  position: fixed;
+  top: -30px;
+  margin-left: 350px;
+  opacity: 0.7;
+  &:hover {
+    opacity: 0.8;
+  }
+  z-index: 1030;
+}
+
+@media (max-width: 767px) {
+  .pagination {
+    li {
+      a, span {
+        padding: 4px 8px;
+        font-size: 12px;
+      }
+    }
+  }
+  #static-pagination {
+    margin-left: 150px;
+  }
+}
+
+@media (max-width: 640px) {
+  #snippet-header {
+    font-size: 18pt;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 560px) {
+  th, td {
+    font-size: 10pt !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    li {
+      a, span {
+        padding: 4px 7px;
+        font-size: 11px;
+      }
+    }
+  }
+  #static-pagination {
+    top: -28px;
+    margin-left: 100px;
+  }
+
+  pre {
+    font-size: 10pt;
+  }
+}
+
+@media (max-width: 399px) {
+  #static-pagination {
+    display: none;
+  }
+
+  .btn-add {
+    margin-top: 30px;
+  }
+
+  #snippet-header {
+    font-size: 14pt;
+  }
+
+  pre {
+    font-size: 9pt;
+  }
+}
+
+#infinite-scrolling {
+  text-align: center;
+
+  height: 50px;
+
+  .ajax-loader {
+    width: 300px;
+  }
+}
+
+#infinite-scrolling .pagination {
+  display: none;
+}

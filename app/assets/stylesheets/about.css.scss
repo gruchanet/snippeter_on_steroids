@@ -1,0 +1,32 @@
+@import 'animate';
+@import 'animate/bounce';
+
+.github-logo {
+    image-rendering: auto;
+    cursor: pointer;
+}
+
+.github-logo:hover {
+  @include animate(bounce, 1s);
+}
+
+.github-logo.bounce {
+  @include animate($speed: 2s);
+}
+
+#about-header {
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .bottom-info {
+    font-size: 14pt !important;
+    text-align: center;
+  }
+}
+
+@media (max-width: 399px) {
+  .bottom-info {
+    font-size: 12pt !important;
+  }
+}
