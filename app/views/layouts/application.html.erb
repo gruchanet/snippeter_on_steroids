@@ -35,6 +35,11 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="<%= 'active' if current_page?(about_path) %>"><a href="/about">Authors</a></li>
+          <% if !session[:user_id] %>
+            <li><a href="/auth/github/"><b>Login</b></a></li>
+          <% else %>
+              <li><a href="/signout"><b>Logout</b></a></li>
+          <% end %>
         </ul>
       </div>
     </div>

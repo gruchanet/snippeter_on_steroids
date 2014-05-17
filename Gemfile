@@ -31,6 +31,9 @@ gem 'select2-rails', '~> 3.5.4'
 # Simplier form syntax
 gem 'simple_form', '~> 3.0.1'
 
+#omni auth
+gem 'omniauth-github', '1.1.1'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

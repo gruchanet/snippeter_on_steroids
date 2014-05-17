@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   get 'snippets/search' => 'snippets#search'
 
+  get "/auth/:provider/callback" => "sessions#create"
+
+  get "/signout" => "sessions#destroy", :as => :signout
+
   resources :snippets
 
   # The priority is based upon order of creation: first created -> highest priority.

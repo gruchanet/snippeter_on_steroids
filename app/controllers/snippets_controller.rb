@@ -1,6 +1,7 @@
 class SnippetsController < ApplicationController
   include Snippet::SearchScope
 
+  before_action :check_session, :except => [:index, :show, :filter_by, :search]
   before_action :set_snippet, only: [:show, :edit, :update, :destroy]
 
   # GET /snippets
