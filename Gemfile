@@ -66,6 +66,10 @@ group :test do
   gem 'capybara', '~> 2.2.1'
   # Automatic & easier definition loading
   gem 'factory_girl_rails', '~> 4.4.1'
+  # Database cleaner
+  gem 'database_cleaner'
+  # Helper for Select2 dropdown
+  gem 'capybara-select2'
 end
 
 group :production do

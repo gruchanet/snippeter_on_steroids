@@ -43,10 +43,14 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-select2 (0.0.8)
+      capybara
+      rspec
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.1.0)
     daemons (1.1.9)
+    database_cleaner (1.2.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -209,6 +213,8 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   bootstrap-will_paginate (~> 0.0.10)
   capybara (~> 2.2.1)
+  capybara-select2
+  database_cleaner
   factory_girl_rails (~> 4.4.1)
   guard-rspec (~> 4.2.9)
   has_scope (~> 0.5.1)
