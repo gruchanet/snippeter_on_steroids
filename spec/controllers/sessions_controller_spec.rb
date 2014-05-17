@@ -31,9 +31,8 @@ describe SessionsController do
 
   end
 
-  describe "#destroy"
-
   describe "#destroy" do
+
     before do
       post :create, provider: :github
     end
@@ -49,6 +48,7 @@ describe SessionsController do
       delete :destroy
       response.should redirect_to root_url
     end
+    
   end
 
 end
