@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gruchanet/snippeter_on_steroids.svg?branch=master)](https://travis-ci.org/gruchanet/snippeter_on_steroids)
+
 ##SnippeterOnSteroids
 ####by JSON team.
 
