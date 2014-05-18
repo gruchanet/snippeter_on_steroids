@@ -73,6 +73,8 @@ group :test do
   gem 'database_cleaner'
   # Helper for Select2 dropdown
   gem 'capybara-select2'
+  # Selenium driver
+  gem 'selenium-webdriver', '~> 2.41.0'
 end
 
 group :production do

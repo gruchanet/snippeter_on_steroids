@@ -1,20 +1,20 @@
-=begin
 require 'spec_helper'
 
 RSpec.configure do |config|
 
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-  end
+  config.use_transactional_fixtures = false
 
-  config.before(:each) do
+  config.before :each do
+    if Capybara.current_driver == :rack_test
+      DatabaseCleaner.strategy = :transaction
+    else
+      DatabaseCleaner.strategy = :truncation
+    end
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after :each do
     DatabaseCleaner.clean
   end
 
 end
-=end
