@@ -11,7 +11,7 @@ describe SnippetsController do
       expect(response.status).to eq(200)
     end
 
-    it "Should return amount of snippets" do
+    it "Should return index template" do
       get :index
       expect(response).to render_template("index")
     end
@@ -50,6 +50,19 @@ describe SnippetsController do
       expect(response.status).to eq(200)
     end
 
+    it "Should return new template" do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
+      session[:user_id].should be_nil
+
+      #Authentication
+      auth = request.env["omniauth.auth"]
+      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
+      session[:user_id] = user.id
+
+      get :new
+      expect(response).to render_template("new")
+    end
+
   end
 
   context "#edit"  do
@@ -79,6 +92,21 @@ describe SnippetsController do
       expect(session[:user_id]).not_to be_nil
       expect(response).to be_success
       expect(response.status).to eq(200)
+    end
+
+    it "Should return edit template" do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
+      session[:user_id].should be_nil
+
+      #Authentication
+      auth = request.env["omniauth.auth"]
+      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
+      session[:user_id] = user.id
+
+      #Edit
+      get :edit, :id => @snippet.id
+
+      expect(response).to render_template("edit")
     end
 
   end
