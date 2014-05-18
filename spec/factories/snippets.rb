@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :snippet do
-    snippet "snippet",
-    description "dupa",
-    lang_id  { |instance| Factory(:lang) }
+    snippet 'Code goes here'
+    description 'It\'s just a test'
+    lang
   end
 end

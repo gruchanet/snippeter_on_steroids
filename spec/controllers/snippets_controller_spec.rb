@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SnippetsController do
 
-  describe "#index" do
+  context "#index" do
 
     it "Should return 200 response code" do
       #sends get to index action
@@ -17,16 +17,16 @@ describe SnippetsController do
     end
 
     #it "assigns snippets" do
-    #  lang    = Lang.create!
+    #  lang    = Lang.create
     #  snippet = Snippet.create snippet: '', lang_id: lang, description: ''
-    #  snippet.save
+    #  #snippet.save
     #  get :index
     #  expect(assigns(:snippets)).to eq([snippet])
     #end
 
   end
 
-  describe "#new" do
+  context "#new" do
 
     it "Should redirect, if not authenticated" do
       get :new
@@ -35,25 +35,29 @@ describe SnippetsController do
 
   end
 
-  describe "#edit"  do
+  context "#edit"  do
 
-    #before :each do
-    #  @snippet = FactoryGirl.create(:snippet)
-    #end
-    #
-    #  it "Should redirect, if not authenticated" do
-    #  get :edit, :id => @gist.id
-    #  response.should redirect_to(:controller => 'snippets', :action => 'index')
-    #end
+    before :each do
+      @snippet = FactoryGirl.create(:snippet)
+    end
+
+      it "Should redirect, if not authenticated" do
+      get :edit, :id => @snippet.id
+      response.should redirect_to(:controller => 'snippets', :action => 'index')
+    end
 
   end
 
-  describe "#destroy" do
+  context "#destroy" do
 
-    #it "Should redirect, if not authenticated" do
-    #  get :destroy
-    #  response.should redirect_to(:controller => 'snippets', :action => 'index')
-    #end
+    before :each do
+      @snippet = FactoryGirl.create(:snippet)
+    end
+
+    it "Should redirect, if not authenticated" do
+      get :destroy, :id => @snippet.id
+      response.should redirect_to(:controller => 'snippets', :action => 'index')
+    end
 
   end
 

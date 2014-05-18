@@ -1,8 +1,7 @@
 FactoryGirl.define do
   factory :lang do
-    id   1
-    name 'TestLang'
-    value 'lang'
+    name 'PHP'
+    value 'php'
     order_type 1
   end
 end
