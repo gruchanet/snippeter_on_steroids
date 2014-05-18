@@ -16,13 +16,13 @@ describe SnippetsController do
       expect(response).to render_template("index")
     end
 
-    #it "assigns snippets" do
-    #  lang    = Lang.create
-    #  snippet = Snippet.create snippet: '', lang_id: lang, description: ''
-    #  #snippet.save
-    #  get :index
-    #  expect(assigns(:snippets)).to eq([snippet])
-    #end
+    it "assigns snippets" do
+      lang = FactoryGirl.create(:lang)
+      snippet = FactoryGirl.create(:snippet, lang: lang)
+
+      get :index
+      expect(assigns(:snippets)).to eq([snippet])
+    end
 
   end
 
