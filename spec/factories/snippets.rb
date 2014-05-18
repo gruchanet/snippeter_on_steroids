@@ -5,9 +5,13 @@ FactoryGirl.define do
     lang
   end
 
-  factory :invalid_snippet, parent: :snippet do
+  factory :snippet_to_update, :parent => :snippet do
+    snippet 'Updated code'
+    description 'It\'s just a updated code'
+  end
+
+  factory :invalid_snippet, :parent => :snippet do
     snippet ''
     description ''
-    lang nil
   end
 end
