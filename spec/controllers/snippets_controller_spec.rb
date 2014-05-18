@@ -2,17 +2,28 @@ require 'spec_helper'
 
 describe SnippetsController do
 
+  before :each, :auth => true do
+    request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
+    session[:user_id].should be_nil
+
+    #Authentication
+    auth = request.env["omniauth.auth"]
+    user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
+    session[:user_id] = user.id
+  end
+
   context "#index" do
 
-    it "Should return 200 response code" do
-      #sends get to index action
+    before :each do
       get :index
+    end
+
+    it "Should return 200 response code" do
       expect(response).to be_success
       expect(response.status).to eq(200)
     end
 
     it "Should return index template" do
-      get :index
       expect(response).to render_template("index")
     end
 
@@ -20,7 +31,6 @@ describe SnippetsController do
       lang = FactoryGirl.create(:lang)
       snippet = FactoryGirl.create(:snippet, lang: lang)
 
-      get :index
       expect(assigns(:snippets)).to eq([snippet])
     end
 
@@ -28,38 +38,21 @@ describe SnippetsController do
 
   context "#new" do
 
-    it "Should redirect, when not authenticated" do
+    before :each do
       get :new
+    end
+
+    it "Should redirect, when not authenticated" do
       response.should redirect_to(:controller => 'snippets', :action => 'index')
     end
 
-    it "should return 200 response, when authenticated" do
-      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-      session[:user_id].should be_nil
-
-      #Authentication
-      auth = request.env["omniauth.auth"]
-      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-      session[:user_id] = user.id
-
-      #Sends GET to create new snippet
-      get :new
-
+    it "should return 200 response, when authenticated", :auth => true do
       expect(session[:user_id]).not_to be_nil
       expect(response).to be_success
       expect(response.status).to eq(200)
     end
 
-    it "Should return new template" do
-      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-      session[:user_id].should be_nil
-
-      #Authentication
-      auth = request.env["omniauth.auth"]
-      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-      session[:user_id] = user.id
-
-      get :new
+    it "Should return new template", :auth => true do
       expect(response).to render_template("new")
     end
 
@@ -67,17 +60,24 @@ describe SnippetsController do
 
   context "#create" do
 
+    before :all do
+      @attr = { :snippet => "new snippet", :description => "changed value" }
+    end
+
     before :each do
-      lang = FactoryGirl.create(:lang)
-      @snippet = FactoryGirl.create(:snippet, lang: lang)
+      lang = FactoryGirl.build(:lang)
+      @snippet = FactoryGirl.build(:snippet, lang: lang)
+
+      put :create, :id => @snippet.id, :snippet => @attr
     end
 
     it "Should redirect, when not authenticated" do
-
-      @attr = { :snippet => "new snippet", :description => "changed value" }
-      put :create, :id => @snippet.id, :snippet => @attr
       response.should redirect_to(:controller => 'snippets', :action => 'index')
+    end
 
+    it "should return 200 response, when authenticated", :auth => true do
+      expect(response).to be_success
+      expect(response.status).to eq(200)
     end
 
   end
@@ -87,42 +87,21 @@ describe SnippetsController do
     before :each do
       lang = FactoryGirl.create(:lang)
       @snippet = FactoryGirl.create(:snippet, lang: lang)
+
+      get :edit, :id => @snippet.id
     end
 
     it "Should redirect, when not authenticated" do
-      get :edit, :id => @snippet.id
       response.should redirect_to(:controller => 'snippets', :action => 'index')
     end
 
-    it "should return 200 response, when authenticated" do
-      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-      session[:user_id].should be_nil
-
-      #Authentication
-      auth = request.env["omniauth.auth"]
-      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-      session[:user_id] = user.id
-
-      #Edit
-      get :edit, :id => @snippet.id
-
+    it "should return 200 response, when authenticated", :auth => true do
       expect(session[:user_id]).not_to be_nil
       expect(response).to be_success
       expect(response.status).to eq(200)
     end
 
-    it "Should return edit template" do
-      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-      session[:user_id].should be_nil
-
-      #Authentication
-      auth = request.env["omniauth.auth"]
-      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-      session[:user_id] = user.id
-
-      #Edit
-      get :edit, :id => @snippet.id
-
+    it "Should return edit template", :auth => true do
       expect(response).to render_template("edit")
     end
 
@@ -130,47 +109,27 @@ describe SnippetsController do
 
   context "#update" do
 
+    before :all do
+      @attr = { :snippet => "new snippet", :description => "changed value" }
+    end
+
     before :each do
       lang = FactoryGirl.create(:lang)
       @snippet = FactoryGirl.create(:snippet, lang: lang)
+
+      put :update, :id => @snippet.id, :snippet => @attr
     end
 
     it "Should redirect, when not authenticated" do
-
-      @attr = { :snippet => "new snippet", :description => "changed value" }
-      put :update, :id => @snippet.id, :snippet => @attr
       response.should redirect_to(:controller => 'snippets', :action => 'index')
-
     end
 
-    it "Should update snippet when authenticated" do
-      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-      session[:user_id].should be_nil
-
-      #Authentication
-      auth = request.env["omniauth.auth"]
-      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-      session[:user_id] = user.id
-
-      @attr = { :snippet => "new snippet", :description => "changed value" }
-      put :update, :id => @snippet.id, :snippet => @attr
-
+    it "Should update snippet when authenticated", :auth => true do
       @snippet.reload
       @snippet.description.should eq("changed value")
     end
 
-    it "Should redirect to edited snippet when update succesfully" do
-      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-      session[:user_id].should be_nil
-
-      #Authentication
-      auth = request.env["omniauth.auth"]
-      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-      session[:user_id] = user.id
-
-      @attr = { :snippet => "new snippet", :description => "changed value" }
-      put :update, :id => @snippet.id, :snippet => @attr
-
+    it "Should redirect to edited snippet when update succesfully", :auth => true do
       url = '/snippets/' + @snippet.id.to_s
       response.should redirect_to url;
     end
@@ -181,41 +140,24 @@ describe SnippetsController do
 
     before :each do
       @snippet = FactoryGirl.create(:snippet)
+
+      unless example.metadata[:skip_before]
+        get :destroy, :id => @snippet.id
+      end
     end
 
     it "Should redirect, when not authenticated" do
-      get :destroy, :id => @snippet.id
       response.should redirect_to(:controller => 'snippets', :action => 'index')
     end
 
-    it "should return redirect to snippets_url, when authenticated" do
-      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-      session[:user_id].should be_nil
-
-      #Authentication
-      auth = request.env["omniauth.auth"]
-      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-      session[:user_id] = user.id
-
-      #Destroy
-      get :destroy, :id => @snippet.id
-
+    it "should return redirect to snippets_url, when authenticated", :auth => true do
       expect(session[:user_id]).not_to be_nil
       response.should redirect_to snippets_url
     end
 
-    it "Should remove snippet, when authenticated" do
+    it "Should remove snippet, when authenticated", :auth => true, :skip_before => true do
       count = Snippet.count
 
-      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-      session[:user_id].should be_nil
-
-      #Authentication
-      auth = request.env["omniauth.auth"]
-      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-      session[:user_id] = user.id
-
-      #Destroy
       get :destroy, :id => @snippet.id
 
       expect(Snippet.count).to eq(count-1)
