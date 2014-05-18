@@ -18,6 +18,7 @@ describe "Menu content" do
   it { should have_link('Recent Snippets', href: snippets_path) }
   it { should have_link('Search', href: snippets_search_path) }
   it { should have_link('Authors', href: about_path) }
+  it { should have_link('Login', href: '/auth/github/') }
 end
 
 describe "Main page" do
