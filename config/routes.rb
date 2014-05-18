@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'snippets/search' => 'snippets#search'
 
-  get "/auth/:provider/callback" => "sessions#create"
+  get "/auth/:provider/callback" => "sessions#create", :as => :signin
 
   get "/signout" => "sessions#destroy", :as => :signout
 
