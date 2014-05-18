@@ -65,6 +65,23 @@ describe SnippetsController do
 
   end
 
+  context "#create" do
+
+    before :each do
+      lang = FactoryGirl.create(:lang)
+      @snippet = FactoryGirl.create(:snippet, lang: lang)
+    end
+
+    it "Should redirect, when not authenticated" do
+
+      @attr = { :snippet => "new snippet", :description => "changed value" }
+      put :create, :id => @snippet.id, :snippet => @attr
+      response.should redirect_to(:controller => 'snippets', :action => 'index')
+
+    end
+
+  end
+
   context "#edit"  do
 
     before :each do
@@ -126,7 +143,7 @@ describe SnippetsController do
 
     end
 
-    it "update snippet when authenticated" do
+    it "Should update snippet when authenticated" do
       request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
       session[:user_id].should be_nil
 
@@ -140,6 +157,22 @@ describe SnippetsController do
 
       @snippet.reload
       @snippet.description.should eq("changed value")
+    end
+
+    it "Should redirect to edited snippet when update succesfully" do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
+      session[:user_id].should be_nil
+
+      #Authentication
+      auth = request.env["omniauth.auth"]
+      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
+      session[:user_id] = user.id
+
+      @attr = { :snippet => "new snippet", :description => "changed value" }
+      put :update, :id => @snippet.id, :snippet => @attr
+
+      url = '/snippets/' + @snippet.id.to_s
+      response.should redirect_to url;
     end
 
   end
