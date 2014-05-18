@@ -31,3 +31,39 @@ describe "Main page" do
     end
   end
 end
+
+describe "Login on main page" do
+  before :each do
+    OmniAuth.config.mock_auth[:github]
+
+    visit root_path
+    click_link 'Login'
+    page.should have_content 'Signed in!'
+  end
+
+  context "user tries to add invalid snippet" do
+    it "should return alert with 2 errors" do
+      visit new_snippet_path
+      click_button 'Add Snippet'
+      page.should have_content '2 errors prohibited this snippet from being saved:'
+      page.should have_content 'Snippet can\'t be blank'
+      page.should have_content 'Lang can\'t be blank'
+    end
+  end
+
+  context "user tries to add valid snippet" do
+    it "should return redirect to `recent snippets` page" do
+      lang = FactoryGirl.create(:ruby_lang)
+      snippet = FactoryGirl.build(:snippet)
+
+      visit new_snippet_path
+
+      fill_in 'Snippet', :with => snippet.snippet
+      select lang.name, from: 'Lang'
+      fill_in 'Description', :with => snippet.description
+      click_button 'Add Snippet'
+
+      expect(current_path).to eq(snippet_path(1))
+    end
+  end
+end
