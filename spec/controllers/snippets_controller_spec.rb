@@ -155,12 +155,12 @@ describe SnippetsController do
       response.should redirect_to snippets_url
     end
 
-    it "Should remove snippet, when authenticated", :auth => true, :skip_before => true do
-      count = Snippet.count
+    it "Should remove snippet, when authenticated", :auth => true do
+      expect { Snippet.find(@snippet) }.to raise_error ActiveRecord::RecordNotFound
+    end
 
-      get :destroy, :id => @snippet.id
-
-      expect(Snippet.count).to eq(count-1)
+    it "Should decrease snippet count by 1, when authenticated", :auth => true, :skip_before => true do
+      expect { post :destroy, :id => @snippet.id }.to change(Snippet, :count).by(-1)
     end
 
   end
