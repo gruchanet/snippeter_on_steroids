@@ -18,4 +18,11 @@ module ApplicationHelper
       when 'error', 'danger' then "alert alert-danger"
     end
   end
+
+  def gravatar_url(email, size)
+    defaultImage = "http://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/twDq00QDud4/s#{size}-c/photo.jpg";
+    gravatar_id = Digest::MD5::hexdigest(email).downcase
+    
+    "http://gravatar.com/avatar/#{gravatar_id}.png?d=#{defaultImage}&s=#{size}"
+  end
 end

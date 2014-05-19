@@ -34,16 +34,23 @@
           <li class="<%= 'active' if current_page?(snippets_search_path) %>"><a href="/snippets/search">Search</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="<%= 'active' if current_page?(about_path) %>"><a href="/about">Authors</a></li>
           <% if !session[:user_id] %>
-            <li>
-              <a href="/auth/github/" class="github-login" data-toggle="tooltip" data-placement="bottom">
-                <b>Login</b>
-              </a>
-            </li>
+              <li>
+                <a href="/auth/github/" class="github-login" data-toggle="tooltip" data-placement="bottom">
+                  <b>Login</b>
+                </a>
+              </li>
           <% else %>
+              <li>
+                <label class="navbar-text">Logged as
+                    <img class="pic img-circle user-gravatar"
+                         data-toggle="tooltip" data-placement="bottom" title="<%= session[:user_email] %>"
+                         src="<%= gravatar_url(session[:user_email], 20) %>">
+                </label>
+              </li>
               <li><a href="/signout"><b>Logout</b></a></li>
           <% end %>
+          <li class="<%= 'active' if current_page?(about_path) %>"><a href="/about">Authors</a></li>
         </ul>
       </div>
     </div>

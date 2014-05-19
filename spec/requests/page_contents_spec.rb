@@ -38,7 +38,14 @@ describe "Login on main page" do
 
     visit root_path
     click_link 'Login'
-    page.should have_content 'Signed in!'
+  end
+
+  context "user login through external account" do
+    it "should return alert and put information into nav" do
+      page.should have_content 'Signed in!'
+      page.should have_content 'Logged as'
+      page.should have_xpath '//img[@class="pic img-circle user-gravatar"]'
+    end
   end
 
   context "user tries to add invalid snippet" do
