@@ -45,6 +45,7 @@ describe "Login on main page" do
       page.should have_content 'Signed in!'
       page.should have_content 'Logged as'
       page.should have_xpath '//img[@class="pic img-circle user-gravatar"]'
+      page.should have_link 'Logout'
     end
   end
 
