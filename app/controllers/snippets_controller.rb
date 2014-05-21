@@ -100,7 +100,7 @@ class SnippetsController < ApplicationController
   def destroy
     @snippet.destroy
     respond_to do |format|
-      format.html { redirect_to snippets_url }
+      format.html { redirect_to snippets_url, notice: 'Snippet was successfully removed.' }
       format.json { head :no_content }
     end
   end

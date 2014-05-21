@@ -5,6 +5,10 @@
     <span class="glyphicon glyphicon-list-alt"></span>
     Back
   <% end %>
+  <%= link_to @snippet, method: :delete, data: { confirm: 'Do you really want to delete this snippet?' }, :class => 'btn btn-remove' do %>
+      <span class="glyphicon glyphicon-trash"></span>
+      Remove
+  <% end %>
   <%= link_to edit_snippet_path(@snippet), :class => 'btn btn-edit' do %>
     <span class="glyphicon glyphicon-pencil"></span>
     Edit
