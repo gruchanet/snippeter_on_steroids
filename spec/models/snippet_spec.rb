@@ -16,6 +16,10 @@ describe Snippet do
       @snippet.snippet.should eq ('test')
     end
 
+    it "is invalid without code & description" do
+      FactoryGirl.build(:invalid_snippet).should_not be_valid
+    end
+
   end
 
 end
