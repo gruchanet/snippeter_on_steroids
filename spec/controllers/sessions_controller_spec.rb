@@ -24,9 +24,9 @@ describe SessionsController do
       expect(session[:user_id]).not_to be_nil
     end
 
-    it "should redirect to root_url" do
+    it "should redirect to snippets page" do
       post :create, provider: :github
-      response.should redirect_to root_url
+      response.should redirect_to snippets_url
     end
 
   end

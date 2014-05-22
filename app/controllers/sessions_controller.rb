@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     session[:user_name] = user.name
     session[:user_email] = user.email
-    redirect_to root_url, :notice => "Signed in!"
+    redirect_to snippets_url, :notice => "Signed in!"
   end
 
   def destroy
