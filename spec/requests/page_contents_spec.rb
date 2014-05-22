@@ -15,6 +15,11 @@ describe "Menu content" do
     }
   end
 
+  it "should have link to home page on all page" do
+    expect( find(:css, '.navbar .navbar-header') ).to have_content 'Snippeter'
+      should have_link 'Snippeter', href: '/'
+  end
+
   it { should have_link('Recent Snippets', href: snippets_path) }
   it { should have_link('Search', href: snippets_search_path) }
   it { should have_link('Authors', href: about_path) }
@@ -30,7 +35,20 @@ describe "Main page" do
       should have_link 'Snippet NOW »', href: 'snippets/new'
     end
   end
-end
+
+  it "should have welcome description" do
+    within(:css, '.container .jumbotron') do
+      should have_selector("h2", text: "Snippeter just for YOU!")
+    end
+  end
+
+  it "should have title in h1 selector" do
+      visit root_path
+      page.should have_selector("h1", text: "Welcome to Snippeter")
+    end
+  end
+
+
 
 describe "Login on main page" do
   before :each do
@@ -49,7 +67,9 @@ describe "Login on main page" do
     end
   end
 
+
   context "adding new snipept" do
+
     context "with invalid values" do
       it "should return alert with 3 errors" do
         visit new_snippet_path
@@ -59,6 +79,7 @@ describe "Login on main page" do
         page.should have_content 'Lang can\'t be blank'
         page.should have_content 'Description can\'t be blank'
       end
+
     end
 
     context "with valid values" do
@@ -154,3 +175,51 @@ describe "Login on main page" do
     end
   end
 end
+
+describe "Add new snippet" do
+  before { visit('/snippets/new') }
+
+  it "should have page title" do
+    within(:css, '.container .page-header') {
+	expect has_content?("New snippet")
+    }
+  end
+
+  it "should have back button" do
+    within(:css, '.container .page-header') {
+	expect(find(:css, '.btn')). has_content? 'Back'
+    }
+  end
+end
+
+describe "Recent snippet" do
+  before :each do
+    OmniAuth.config.mock_auth[:github]
+
+    visit root_path
+    click_link 'Login'
+  end
+
+  before { visit('/snippets') }
+
+  it "should have page title" do
+    within(:css, '.container .page-header') {
+	expect has_content?("Recent snippets")
+    }
+  end
+
+  it "should have add new snippet button" do
+    within(:css, '.container .page-header') {
+	expect(find(:css, '.btn')). has_content? 'New Snippet'
+    }
+  end
+#paginacja, tabela, poojedynczy snippet should have_selector("h2", text: "Snippeter just for YOU!")
+
+  it "should have paggination" do
+   within(:css, '.container #static-pagination') do
+    	expect has_selector?("a", text: "← Previous")
+	expect has_selector?("a", text: "Next →")
+    end
+  end
+end
+

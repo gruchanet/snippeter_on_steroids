@@ -16,6 +16,13 @@ describe Snippet do
       @snippet.snippet.should eq ('test')
     end
 
+    it "returns a new Snippet" do
+      @snippet = Snippet.new :description => 'testowy', :snippet => 'kod'
+
+      @snippet.description.should eq ('testowy')
+      @snippet.snippet.should eq ('kod')
+    end
+
     it "is invalid without code & description" do
       FactoryGirl.build(:invalid_snippet).should_not be_valid
     end
