@@ -43,9 +43,11 @@
           <% else %>
               <li>
                 <label class="navbar-text">Logged as
+                  <a href="http://github.com/<%= session[:user_name] %>" target="_blank">
                     <img class="pic img-circle user-gravatar"
-                         data-toggle="tooltip" data-placement="bottom" title="<%= session[:user_email] %>"
+                         data-toggle="tooltip" data-placement="bottom" title="<%= session[:user_name] %>"
                          src="<%= gravatar_url(session[:user_email], 20) %>">
+                  </a>
                 </label>
               </li>
               <li><a href="/signout"><b>Logout</b></a></li>
