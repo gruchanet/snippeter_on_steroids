@@ -59,10 +59,10 @@ describe "Login on main page" do
   end
 
   context "login through external account" do
-    it "should return alert and put information into nav" do
+    it "should return alert and put corrent informations into nav" do
       page.should have_content 'Signed in!'
       page.should have_content 'Logged as'
-      page.should have_xpath '//img[@class="pic img-circle user-gravatar"]'
+      page.should have_xpath '//a[@href="http://github.com/chuck_tester" and @target="_blank"]/img[@class="pic img-circle user-gravatar"]'
       page.should have_link 'Logout'
     end
   end
