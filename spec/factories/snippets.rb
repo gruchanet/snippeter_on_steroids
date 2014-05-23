@@ -3,6 +3,7 @@ FactoryGirl.define do
     snippet 'Code goes here'
     description 'It\'s just a test code'
     lang
+    user
   end
 
   factory :snippet_to_update, :parent => :snippet do

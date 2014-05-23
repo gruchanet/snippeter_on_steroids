@@ -52,24 +52,23 @@ describe "Main page" do
 
 describe "Login on main page" do
   before :each do
-    OmniAuth.config.mock_auth[:github]
+    @userAuth = OmniAuth.config.mock_auth[:github]
+    @user = FactoryGirl.create(:user)
 
     visit root_path
     click_link 'Login'
   end
 
   context "login through external account" do
-    it "should return alert and put corrent informations into nav" do
-      page.should have_content 'Signed in!'
+    it "should render alert and put corrent informations into nav" do
+      expect(find(:css, '.alert.alert-info')).to have_content 'Signed in!'
       page.should have_content 'Logged as'
-      page.should have_xpath '//a[@href="http://github.com/chuck_tester" and @target="_blank"]/img[@class="pic img-circle user-gravatar"]'
+      page.should have_xpath "//a[@href='#{user_snippets_path @user.id}']/img[@class='pic img-circle user-gravatar']"
       page.should have_link 'Logout'
     end
   end
 
-
-  context "adding new snipept" do
-
+  context "adding new snippet" do
     context "with invalid values" do
       it "should return alert with 3 errors" do
         visit new_snippet_path
@@ -79,7 +78,6 @@ describe "Login on main page" do
         page.should have_content 'Lang can\'t be blank'
         page.should have_content 'Description can\'t be blank'
       end
-
     end
 
     context "with valid values" do
@@ -99,7 +97,7 @@ describe "Login on main page" do
         expect(current_path).to eq(snippet_path(1))
       end
 
-      it "should show alert with correct information" do
+      it "should render alert with correct information" do
         expect(find(:css, '.alert.alert-info')).to have_content 'Snippet was successfully created.'
       end
     end
@@ -108,7 +106,7 @@ describe "Login on main page" do
   context "updating snippet" do
     before :each do
       @lang = FactoryGirl.create(:ruby_lang)
-      @snippet = FactoryGirl.create(:snippet)
+      @snippet = FactoryGirl.create(:snippet, :user => @user)
 
       visit edit_snippet_path(@snippet.id)
     end
@@ -124,11 +122,11 @@ describe "Login on main page" do
         click_button 'Update Snippet'
       end
 
-      it "should return redirect to edited snippet page" do
+      it "should return redirect to edited snippet page", :js => true do
         expect(current_path).to eq(snippet_path(@snippet.id))
       end
 
-      it "should return alert with 3 errors" do
+      it "should return alert with 2 errors" do
         page.should have_content '2 errors prohibited this snippet from being saved:'
         page.should have_content 'Snippet can\'t be blank'
         page.should have_content 'Description can\'t be blank'
@@ -150,7 +148,7 @@ describe "Login on main page" do
         expect(current_path).to eq(snippet_path(@snippet.id))
       end
 
-      it "should show alert with correct information" do
+      it "should render alert with correct information" do
         expect(find(:css, '.alert.alert-info')).to have_content 'Snippet was successfully updated.'
       end
     end
@@ -159,7 +157,7 @@ describe "Login on main page" do
   context "deleting snippet" do
     before :each do
       @lang = FactoryGirl.create(:ruby_lang)
-      @snippet = FactoryGirl.create(:snippet)
+      @snippet = FactoryGirl.create(:snippet, :user => @user)
 
       visit snippet_path(@snippet.id)
 
@@ -170,25 +168,38 @@ describe "Login on main page" do
       expect(current_path).to eq(snippets_path)
     end
 
-    it "should show alert with correct information" do
+    it "should render alert with correct information" do
       expect(find(:css, '.alert.alert-info')).to have_content 'Snippet was successfully removed.'
     end
   end
-end
 
-describe "Add new snippet" do
-  before { visit('/snippets/new') }
+  context "and logout from account" do
+    before :each do
+      click_link 'Logout'
+    end
 
-  it "should have page title" do
-    within(:css, '.container .page-header') {
-	expect has_content?("New snippet")
-    }
+    it "should render alert with correct information" do
+      expect(find(:css, '.alert.alert-info')).to have_content 'Signed out!'
+      page.should_not have_content 'Logged as'
+      page.should_not have_xpath '//a[@href="http://github.com/chuck_tester" and @target="_blank"]/img[@class="pic img-circle user-gravatar"]'
+      page.should have_link 'Login'
+    end
   end
 
-  it "should have back button" do
-    within(:css, '.container .page-header') {
-	expect(find(:css, '.btn')). has_content? 'Back'
-    }
+  context "New snippet page" do
+    before { visit('/snippets/new') }
+
+    it "should have page title" do
+      within(:css, '.container .page-header') {
+        expect has_content?("New snippet")
+      }
+    end
+
+    it "should have back button" do
+      within(:css, '.container .page-header') {
+        expect(find(:css, '.btn.btn-default')). has_content? 'Back'
+      }
+    end
   end
 end
 

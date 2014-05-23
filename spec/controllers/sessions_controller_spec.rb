@@ -46,7 +46,7 @@ describe SessionsController do
 
     it "should redirect to the home page" do
       delete :destroy
-      response.should redirect_to root_url
+      response.should redirect_to snippets_url
     end
 
   end

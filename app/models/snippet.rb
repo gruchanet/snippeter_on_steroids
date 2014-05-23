@@ -1,7 +1,8 @@
 class Snippet < ActiveRecord::Base
+  belongs_to :user
   belongs_to :lang
 
-  validates :snippet, :lang_id, :description, presence: true, allow_nil: false
+  validates :snippet, :lang_id, :description, presence: true, allow_nil: false # :user_id
   validates_length_of :description, maximum: 100
 
   module SearchScope

@@ -6,17 +6,17 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  end
-
-  def check_session
-    unless session[:user_id]
-      flash[:notice] = "Please log in"
-      redirect_to(:controller => 'snippets', :action => 'index')
-      return false
-    else
-      return true;
+    def current_user
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
     end
-  end
+
+    def check_session
+      unless session[:user_id]
+        flash[:notice] = "Please log in first."
+        redirect_to(:controller => 'snippets', :action => 'index')
+        return false
+      else
+        return true;
+      end
+    end
 end

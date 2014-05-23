@@ -1,4 +1,4 @@
-<% title 'Recent snippets' %>
+<% title @page_title %>
 
 <!-- TODO: REF => snippets#index -->
 <% if @snippets_count_texts %>
@@ -9,11 +9,13 @@
 <% end %>
 
 <div class="page-header">
-  <%= link_to new_snippet_path, :class => 'btn btn-add' do %>
-    <span class="glyphicon glyphicon-plus"></span>
-    New Snippet
+  <% if @render_new_button %>
+      <%= link_to new_snippet_path, :class => 'btn btn-add' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        New Snippet
+      <% end %>
   <% end %>
-  <h1>Recent snippets</h1>
+  <h1><%= raw @main_header %></h1>
 </div>
 
 <div id="static-pagination">
@@ -26,11 +28,16 @@
     <thead>
       <tr>
         <th class="toggle-header">Snippet</th>
+        <% unless @hide_author %>
+        <th class="author-header">By</th>
+        <% end %>
         <th class="lang-header">Lang</th>
         <th class="desc-header">Description</th>
         <th class="date-header">Last modification</th>
+        <% if @render_buttons && session[:user_id] %>
         <th class="button-header"></th>
         <th class="button-header"></th>
+        <% end %>
       </tr>
     </thead>
 

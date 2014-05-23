@@ -1,17 +1,28 @@
 <% title @snippet.lang.name + ' ' + 'Snippet' %>
 
+<% if @snippet.user %>
+<div class="profile-container">
+  <img class="pic img-circle"
+       data-toggle="tooltip" data-placement="bottom"
+       src="<%= gravatar_url(@snippet.user.email, 80) %>">
+  <p class="label label-primary label-username-page"><%= @snippet.user.name %></p>
+</div>
+<% end %>
+
 <div class="page-header">
   <%= link_to snippets_path, :class => 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Back
   <% end %>
-  <%= link_to @snippet, method: :delete, data: { confirm: 'Do you really want to delete this snippet?' }, :class => 'btn btn-remove' do %>
-      <span class="glyphicon glyphicon-trash"></span>
-      Remove
-  <% end %>
-  <%= link_to edit_snippet_path(@snippet), :class => 'btn btn-edit' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+  <% if @render_buttons %>
+      <%= link_to @snippet, method: :delete, data: { confirm: 'Do you really want to delete this snippet?' }, :class => 'btn btn-remove' do %>
+          <span class="glyphicon glyphicon-trash"></span>
+          Remove
+      <% end %>
+      <%= link_to edit_snippet_path(@snippet), :class => 'btn btn-edit' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Edit
+      <% end %>
   <% end %>
   <h1 id="snippet-header"><%= @snippet.lang.name %> Snippet</h1>
 </div>

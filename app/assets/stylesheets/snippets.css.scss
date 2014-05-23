@@ -146,6 +146,13 @@ fieldset[disabled] .btn-remove.active {
     color: #FFFFFF !important;
 }
 
+.btn-add[disabled],
+.btn-edit[disabled],
+.btn-remove[disabled] {
+  border-color: darkgray;
+  background-color: lightgray;
+}
+
 
 /* OTHER STYLES */
 dd {
@@ -224,6 +231,15 @@ pre, textarea {
   }
 }
 
+.author-header, .author-notion {
+  width: 150px;
+  max-width: 150px;
+}
+
+.author-notion {
+  text-align: center;
+}
+
 .lang-header, .lang-notion {
   @media (max-width: 449px) {
     display: none; // text-indent: -9999px;
@@ -253,6 +269,32 @@ pre, textarea {
   font-size: 18pt;
   width: 50px;
   max-width: 50px;
+}
+
+.profile-link {
+  display: block;
+}
+
+.profile-link:hover {
+  text-decoration: none;
+}
+
+.profile-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.label-username {
+  margin-top: 5px;
+  display: block;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+.label-username-page {
+  @extend .label-username;
+  max-width: 150px;
+  margin: 10px auto;
 }
 
 #static-pagination {

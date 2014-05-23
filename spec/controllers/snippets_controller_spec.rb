@@ -7,8 +7,8 @@ describe SnippetsController do
 
     #Authentication
     auth = request.env["omniauth.auth"]
-    user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-    session[:user_id] = user.id
+    @user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
+    session[:user_id] = @user.id
   end
 
   context "#index" do
@@ -111,7 +111,7 @@ describe SnippetsController do
     context "With valid attributes" do
       before :each do
         lang = FactoryGirl.create(:lang)
-        @snippet = FactoryGirl.create(:snippet, lang: lang)
+        @snippet = FactoryGirl.create(:snippet, :lang => lang, :user => @user)
 
         get :edit, :id => @snippet.id
       end
@@ -139,7 +139,7 @@ describe SnippetsController do
   context "#update" do
     before :each do
       lang = FactoryGirl.create(:lang)
-      @snippet = FactoryGirl.create(:snippet, lang: lang)
+      @snippet = FactoryGirl.create(:snippet, :lang => lang, :user => @user)
     end
 
     context "With valid attributes" do
@@ -197,7 +197,7 @@ describe SnippetsController do
 
   context "#destroy" do
     before :each do
-      @snippet = FactoryGirl.create(:snippet)
+      @snippet = FactoryGirl.create(:snippet, :user => @user)
 
       unless example.metadata[:skip_before]
         get :destroy, :id => @snippet.id

@@ -1,0 +1,8 @@
+<div class="profile-container">
+  <img class="pic img-circle"
+       data-toggle="tooltip" data-placement="bottom"
+       src="<%= gravatar_url(@user.email, 80) %>">
+  <p class="label label-primary label-username-page"><%= @user.name %></p>
+</div>
+
+<%= render :template => 'snippets/index.html.erb' %>

@@ -17,7 +17,7 @@ describe User do
     it "takes parameters and return User object" do
       auth = FactoryGirl.create(:user)
       @user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-      @user.name.should eql "Test"
+      @user.name.should eql 'chuck_tester'
     end
 
   end
