@@ -15,15 +15,19 @@ describe "Menu content" do
     }
   end
 
-  it "should have link to home page on all page" do
-    expect( find(:css, '.navbar .navbar-header') ).to have_content 'Snippeter'
-      should have_link 'Snippeter', href: '/'
-  end
-
   it { should have_link('Recent Snippets', href: snippets_path) }
   it { should have_link('Search', href: snippets_search_path) }
   it { should have_link('Authors', href: about_path) }
   it { should have_link('Login', href: '/auth/github/') }
+
+  it "should have correct title" do
+    should have_title("Snippeter App")
+  end
+
+  it "should have correct header" do
+    page.should have_selector 'h1', text: 'Welcome to Snippeter'
+  end
+
 end
 
 describe "Main page" do
@@ -35,25 +39,50 @@ describe "Main page" do
       should have_link 'Snippet NOW »', href: 'snippets/new'
     end
   end
-
-  it "should have welcome description" do
-    within(:css, '.container .jumbotron') do
-      should have_selector("h2", text: "Snippeter just for YOU!")
-    end
+  it "has valid `Filters` button" do
+    click_link 'Search'
+    expect( find(:css, '.btn.btn-primary') ).to have_content 'Filters'
+    should have_selector 'span'
   end
 
-  it "should have title in h1 selector" do
-      visit root_path
-      page.should have_selector("h1", text: "Welcome to Snippeter")
-    end
+  it "has valid `new snippet` button" do
+    click_link 'Recent Snippets'
+    expect( find(:css, '.btn.btn-add') ).to have_content 'New Snippet'
+    should have_link 'New Snippet', href: '/snippets/new'
+ 
   end
 
+  it "vailid title after multiclicking" do
+    100.times do
+      click_link 'Snippets'
+      click_link 'Recent Snippets'
+      click_link 'Authors'
+      click_link 'Search'
+    end
+    should have_title("Snippeter App | Search snippets")
+    page.should have_selector 'h1', text: 'Search snippets'
+  end
+  it "random link clicking" do
+    100.times do
+      click_link ['Snippets','Recent Snippets','Authors','Search'].sample
+    end
+  end
+  it "massage log in" do
+    click_link 'Search'
+    click_button 'Filters'
+    click_link 'New Snippet'
+    page.should have_selector '.alert', text: 'Please log in'
+  end
+  it "message log in" do
+    click_link 'Snippet NOW »'
+    page.should have_selector '.alert', text: 'Please log in'
+  end
 
+end
 
 describe "Login on main page" do
   before :each do
     OmniAuth.config.mock_auth[:github]
-
     visit root_path
     click_link 'Login'
   end
@@ -67,19 +96,24 @@ describe "Login on main page" do
     end
   end
 
-
   context "adding new snipept" do
-
     context "with invalid values" do
-      it "should return alert with 3 errors" do
+      before :each do
         visit new_snippet_path
         click_button 'Add Snippet'
+      end
+      it "should return alert with 3 errors" do
         page.should have_content '3 errors prohibited this snippet from being saved:'
+      end
+      it "should return Snippet errors" do
         page.should have_content 'Snippet can\'t be blank'
+      end
+      it "should return Lang errors" do
         page.should have_content 'Lang can\'t be blank'
+      end
+      it "should return Description errors" do
         page.should have_content 'Description can\'t be blank'
       end
-
     end
 
     context "with valid values" do
@@ -128,7 +162,7 @@ describe "Login on main page" do
         expect(current_path).to eq(snippet_path(@snippet.id))
       end
 
-      it "should return alert with 3 errors" do
+      it "should return alert with 2 errors" do
         page.should have_content '2 errors prohibited this snippet from being saved:'
         page.should have_content 'Snippet can\'t be blank'
         page.should have_content 'Description can\'t be blank'
@@ -174,52 +208,61 @@ describe "Login on main page" do
       expect(find(:css, '.alert.alert-info')).to have_content 'Snippet was successfully removed.'
     end
   end
-end
-
-describe "Add new snippet" do
-  before { visit('/snippets/new') }
-
-  it "should have page title" do
-    within(:css, '.container .page-header') {
-	expect has_content?("New snippet")
-    }
-  end
-
-  it "should have back button" do
-    within(:css, '.container .page-header') {
-	expect(find(:css, '.btn')). has_content? 'Back'
-    }
-  end
-end
-
-describe "Recent snippet" do
-  before :each do
-    OmniAuth.config.mock_auth[:github]
-
-    visit root_path
+  it "should corectly relogin" do
+    click_link 'Logout'
     click_link 'Login'
+    page.should have_content 'Signed in!'
+  end
+  it "should corectly relogin" do
+    click_link 'Logout'
+    click_link 'Login'
+    page.should have_content 'Signed in!'
   end
 
-  before { visit('/snippets') }
-
-  it "should have page title" do
-    within(:css, '.container .page-header') {
-	expect has_content?("Recent snippets")
-    }
-  end
-
-  it "should have add new snippet button" do
-    within(:css, '.container .page-header') {
-	expect(find(:css, '.btn')). has_content? 'New Snippet'
-    }
-  end
-#paginacja, tabela, poojedynczy snippet should have_selector("h2", text: "Snippeter just for YOU!")
-
-  it "should have paggination" do
-   within(:css, '.container #static-pagination') do
-    	expect has_selector?("a", text: "← Previous")
-	expect has_selector?("a", text: "Next →")
+  it "has valid `new snippet` button" do
+    within(:css, '.container .jumbotron') do
+      expect( find(:css, '.btn.btn-primary.btn-lg') ).to have_content 'Snippet NOW »'
+      should have_link 'Snippet NOW »', href: 'snippets/new'
     end
   end
-end
 
+  it "has valid `Filters` button" do
+    click_link 'Search'
+    expect( find(:css, '.btn.btn-primary') ).to have_content 'Filters'
+    should have_selector 'span'
+  end
+
+  it "has valid `new snippet` button" do
+    click_link 'Recent Snippets'
+    expect( find(:css, '.btn.btn-add') ).to have_content 'New Snippet'
+    should have_link 'New Snippet', href: '/snippets/new'
+ 
+  end
+
+  it "vailid title after multiclicking" do
+    100.times do
+      click_link 'Snippets'
+      click_link 'Recent Snippets'
+      click_link 'Authors'
+      click_link 'Search'
+    end
+    should have_title("Snippeter App | Search snippets")
+    page.should have_selector 'h1', text: 'Search snippets'
+  end
+  it "random link clicking" do
+    100.times do
+      click_link ['Snippets','Recent Snippets','Authors','Search'].sample
+    end
+  end
+  it "massage log in" do
+    click_link 'Search'
+    click_button 'Filters'
+    click_link 'New Snippet'
+    page.should_not have_selector '.alert'
+  end
+  it "message log in" do
+    click_link 'Snippet NOW »'
+    page.should_not have_selector '.alert'
+  end
+
+end
