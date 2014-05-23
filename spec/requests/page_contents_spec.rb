@@ -67,7 +67,7 @@ describe "Main page" do
       click_link ['Snippets','Recent Snippets','Authors','Search'].sample
     end
   end
-  it "massage log in" do
+  it "message log in" do
     click_link 'Search'
     click_button 'Filters'
     click_link 'New Snippet'
@@ -208,11 +208,13 @@ describe "Login on main page" do
       expect(find(:css, '.alert.alert-info')).to have_content 'Snippet was successfully removed.'
     end
   end
+
   it "should corectly relogin" do
     click_link 'Logout'
     click_link 'Login'
     page.should have_content 'Signed in!'
   end
+
   it "should corectly relogin" do
     click_link 'Logout'
     click_link 'Login'
@@ -220,6 +222,8 @@ describe "Login on main page" do
   end
 
   it "has valid `new snippet` button" do
+    visit root_path
+
     within(:css, '.container .jumbotron') do
       expect( find(:css, '.btn.btn-primary.btn-lg') ).to have_content 'Snippet NOW »'
       should have_link 'Snippet NOW »', href: 'snippets/new'
@@ -239,8 +243,8 @@ describe "Login on main page" do
  
   end
 
-  it "vailid title after multiclicking" do
-    100.times do
+  it "has valid title after multiclicking" do
+    20.times do
       click_link 'Snippets'
       click_link 'Recent Snippets'
       click_link 'Authors'
@@ -249,20 +253,85 @@ describe "Login on main page" do
     should have_title("Snippeter App | Search snippets")
     page.should have_selector 'h1', text: 'Search snippets'
   end
+
   it "random link clicking" do
-    100.times do
+    20.times do
       click_link ['Snippets','Recent Snippets','Authors','Search'].sample
     end
   end
-  it "massage log in" do
-    click_link 'Search'
-    click_button 'Filters'
-    click_link 'New Snippet'
-    page.should_not have_selector '.alert'
-  end
-  it "message log in" do
-    click_link 'Snippet NOW »'
-    page.should_not have_selector '.alert'
+
+  context "Clicking on `New Snippet` button" do
+    it "should render alert with message `Please log in first.`" do
+      click_link 'New Snippet'
+      page.should_not have_selector '.alert'
+    end
   end
 
+  context "Clicking on `Snippet NOW »` button" do
+    it "should render alert with message `Please log in first.`" do
+      visit root_path
+
+      click_link 'Snippet NOW »'
+      page.should_not have_selector '.alert'
+    end
+  end
+
+  context "and logout from account" do
+    before :each do
+      click_link 'Logout'
+    end
+
+    it "should render alert with correct information" do
+      expect(find(:css, '.alert.alert-info')).to have_content 'Signed out!'
+      page.should_not have_content 'Logged as'
+      page.should_not have_xpath '//a[@href="http://github.com/chuck_tester" and @target="_blank"]/img[@class="pic img-circle user-gravatar"]'
+      page.should have_link 'Login'
+    end
+  end
+
+  context "New snippet page" do
+    before { visit('/snippets/new') }
+
+    it "should have page title" do
+      within(:css, '.container .page-header') {
+        expect has_content?("New snippet")
+      }
+    end
+
+    it "should have back button" do
+      within(:css, '.container .page-header') {
+        expect(find(:css, '.btn.btn-default')). has_content? 'Back'
+      }
+    end
+  end
+end
+
+describe "Recent snippet" do
+  before :each do
+    OmniAuth.config.mock_auth[:github]
+
+    visit root_path
+    click_link 'Login'
+  end
+
+  before { visit('/snippets') }
+
+  it "should have page title" do
+    within(:css, '.container .page-header') {
+      expect has_content?("Recent snippets")
+    }
+  end
+
+  it "should have add new snippet button" do
+    within(:css, '.container .page-header') {
+      expect(find(:css, '.btn')). has_content? 'New Snippet'
+    }
+  end
+
+  it "should have paggination" do
+    within(:css, '.container #static-pagination') do
+      expect has_selector?("a", text: "← Previous")
+      expect has_selector?("a", text: "Next →")
+    end
+  end
 end

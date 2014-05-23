@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def check_session
     unless session[:user_id]
-      flash[:notice] = "Please log in"
+      flash[:notice] = "Please log in first."
       redirect_to(:controller => 'snippets', :action => 'index')
       return false
     else
