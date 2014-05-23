@@ -16,11 +16,11 @@ describe Snippet do
       @snippet.snippet.should eq ('test')
     end
 
-    it "returns a new Snippet" do
-      @snippet = Snippet.new :description => 'testowy', :snippet => 'kod'
+    it "returns a neww Snippet object with picked parameter" do
+      @snippet = Snippet.new :description => 'blaa', :snippet => 'teest'
 
-      @snippet.description.should eq ('testowy')
-      @snippet.snippet.should eq ('kod')
+      @snippet.description.should eq ('blaa')
+      @snippet.snippet.should eq ('teest')
     end
 
     it "is invalid without code & description" do

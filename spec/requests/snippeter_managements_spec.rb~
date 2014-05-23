@@ -20,5 +20,19 @@ feature "Snippeter management" do
 #    }
 #  end
 
+#feature "Gist management" do
+#  scenario "User creates a new gist" do
+#    visit "/snippets/new"
+
+#    fill_in "Snippet", :with => "snippet_snippet"
+#    find("#section-lang").select("css")
+#    fill_in "Description", :with => "Some description"
+#    click_button "Add Snippet"
+
+
+#    expect(page).to have_text("Snippet was successfully created.")
+
+#  end
+#end
 
 end
