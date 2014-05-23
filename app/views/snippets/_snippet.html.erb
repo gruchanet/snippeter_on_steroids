@@ -31,7 +31,7 @@
   <% end %>
 </tr>
 <tr class="snippet-showcase">
-  <td colspan="6" class="snippet-notion">
+  <td colspan="7" class="snippet-notion">
     <div id="snippet-<%= snippet.id %>" class="snippet-container collapse out">
       <%= raw Pygments.highlight(snippet.snippet, lexer: snippet.lang.value.downcase) %>
     </div>
