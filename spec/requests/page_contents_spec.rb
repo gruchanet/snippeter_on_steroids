@@ -31,10 +31,9 @@ end
 describe "Main page" do
   before { visit root_path }
 
-  it "has valid `new snippet` button" do
+  it "has valid `login NOW` button" do
     within(:css, '.container .jumbotron') do
-      expect( find(:css, '.btn.btn-primary.btn-lg') ).to have_content 'Snippet NOW »'
-      should have_link 'Snippet NOW »', href: 'snippets/new'
+      expect(page).to have_link 'NOW »', href: '/auth/github'
     end
   end
 
@@ -59,6 +58,18 @@ describe "Login on main page" do
 
     visit root_path
     click_link 'Login'
+  end
+
+  context "Go to main page" do
+    before :each do
+      visit root_path
+    end
+
+    it "should have valid `new snippet` button" do
+      within(:css, '.container .jumbotron') do
+        expect(page).to have_link 'Snippet NOW »', :href => new_snippet_path
+      end
+    end
   end
 
   context "login through external account" do

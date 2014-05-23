@@ -3,9 +3,13 @@
 </div>
 <div class="jumbotron">
   <h2><strong><label><a>Snippeter</a></label></strong> just for <strong>YOU</strong>!</h2>
-  <p>Wanna share your awesome snippets with friends?</p><br/>
+  <p>Wanna share your awesome snippets with friends? Or just store it safely?</p><br/>
   <p>We support over <strong>100!</strong> programming languages, templates and markups.</p><br/>
   <p>Explore features of Snippeter right now!</p>
   <p><strong>Just click right down there!</strong></p>
-  <p>Share with your <a class="btn btn-primary btn-lg" role="button" href="snippets/new">Snippet NOW &raquo;</a></p>
+  <% unless session[:user_id] %>
+    <p>Login through your GitHub account <a class="btn btn-primary btn-lg" role="button" href="/auth/github">NOW &raquo;</a></p>
+  <% else %>
+    <p>Share with your <a class="btn btn-primary btn-lg" role="button" href="<%= new_snippet_path %>">Snippet NOW &raquo;</a></p>
+  <% end %>
 </div>

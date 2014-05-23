@@ -1,6 +1,10 @@
 language: ruby
 rvm:
   - "2.1.1"
+
+bundler_args: --without production
+
+# Need it for selenium tests
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
