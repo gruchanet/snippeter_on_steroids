@@ -431,3 +431,36 @@ pre, textarea {
 #infinite-scrolling .pagination {
   display: none;
 }
+
+@media (max-width: 705px) {
+  dd.snippet-code {
+    overflow-x: hidden;
+  }
+}
+
+.highlighttable {
+  position: relative;
+
+  .highlight {
+    top: 0;
+    position: absolute;
+
+    pre {
+      overflow-x: auto;
+      max-width: 90%;
+
+      // css mastah
+      @media (max-width: 1199px) {
+        max-width: 75%;
+      }
+
+      @media (max-width: 1199px) {
+        max-width: 70%;
+      }
+
+      @media (max-width: 767px) {
+        max-width: 65%;
+      }
+    }
+  }
+}

@@ -33,7 +33,7 @@
 <tr class="snippet-showcase">
   <td colspan="7" class="snippet-notion">
     <div id="snippet-<%= snippet.id %>" class="snippet-container collapse out">
-      <%= raw Pygments.highlight(snippet.snippet, lexer: snippet.lang.value.downcase) %>
+      <%= raw Pygments.highlight(snippet.snippet, lexer: snippet.lang.value.downcase, :options => { :linenos => true }) %>
     </div>
   </td>
 </tr>

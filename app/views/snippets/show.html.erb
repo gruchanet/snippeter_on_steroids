@@ -41,6 +41,6 @@
   <dd><%= @snippet.updated_at.in_time_zone('Warsaw').to_formatted_s(:rfc822) %></dd>
 
   <dt>Snippet:</dt>
-  <dd><%= raw Pygments.highlight(@snippet.snippet, lexer: @snippet.lang.value.downcase) %></dd>
+  <dd class="snippet-code"><%= raw Pygments.highlight(@snippet.snippet, lexer: @snippet.lang.value.downcase, :options => { :linenos => true }) %></dd>
 
 </dl>
