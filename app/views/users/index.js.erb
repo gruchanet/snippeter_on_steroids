@@ -1,0 +1,22 @@
+// Load users (by infinite scroll)
+var delimiter = $('<div class="page-delimiter" data-page="<%= params[:page] %>"></div>');
+$('#users').append(delimiter);
+$('#users').append('<%= j render @users %>');
+$('.pagination').replaceWith('<%= j will_paginate @users %>');
+$('#infinite-scrolling').find('.ajax-loader').remove();
+preparePagination(delimiter);
+
+isLoading = false;
+
+<% unless @users.next_page %>
+$('#infinite-scrolling').remove();
+
+if ($('#users-table').find('#no-more').length == 0) {
+    $('#users-table').append('<div id="no-more" style="display: none; height: 50px; text-align: center;">No more users found.</div>');
+}
+
+$('#users-table').find('#no-more').fadeIn(2500);
+$('#users-table').find('#no-more').fadeOut(2500, function() {
+    $(this).remove();
+});
+<% end %>

@@ -9,8 +9,9 @@ describe "Menu content" do
         page.should have_content('Snippeter')
       }
 
-      find(:xpath, '//ul[@class="nav navbar-nav"][1]/li[1]/a').should have_text('Recent Snippets')
-      find(:xpath, '//ul[@class="nav navbar-nav"][1]/li[2]/a').should have_text('Search')
+      find(:xpath, '//ul[@class="nav navbar-nav"][1]/li[1]/a').should have_text('Snippets')
+      find(:xpath, '//ul[@class="nav navbar-nav"][1]/li[2]/a').should have_text('Users')
+      find(:xpath, '//ul[@class="nav navbar-nav"][1]/li[3]/a').should have_text('Search')
       find(:css, '.nav.navbar-nav.navbar-right').should have_content('Authors')
     }
   end
@@ -20,7 +21,8 @@ describe "Menu content" do
       should have_link 'Snippeter', href: '/'
   end
 
-  it { should have_link('Recent Snippets', href: snippets_path) }
+  it { should have_link('Snippets', href: snippets_path) }
+  it { should have_link('Users', href: users_path) }
   it { should have_link('Search', href: snippets_search_path) }
   it { should have_link('Authors', href: about_path) }
   it { should have_link('Login', href: '/auth/github/') }

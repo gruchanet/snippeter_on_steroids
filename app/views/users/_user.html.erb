@@ -1,0 +1,15 @@
+<tr class="row-link" data-link="<%= user_snippets_path(user) %>">
+  <td class="author-notion">
+    <img class="pic img-circle"
+       data-toggle="tooltip" data-placement="bottom"
+       src="<%= gravatar_url(user.email, 30) %>">
+    <span class="label label-primary label-username"><%= user.name %></span>
+  </td>
+  <td class="creation-notion"><%= user.created_at.in_time_zone('Warsaw').to_formatted_s(:rfc822) %></td>
+  <td class="total-notion"><%= raw render_count user.snippets.count %></td>
+  <td class="link-notion">
+    <a href="http://github.com/<%= user.name %>" target="_blank">
+      <span class="glyphicon glyphicon-link github-link"></span>
+    </a>
+  </td>
+</tr>

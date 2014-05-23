@@ -1,4 +1,48 @@
+<% title @page_title %>
+
 <div class="page-header">
-  <h1>Users#index</h1>
+  <h1><b>Snippeter</b> Users</h1>
 </div>
-<p>Find me in app/views/users/index.html.erb</p>
+
+<div id="static-pagination">
+  <%= will_paginate %>
+</div>
+
+<% if @users.size > 0 %>
+    <div id="users-table">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+          <th class="author-header">User</th>
+          <th class="creation-header">First logged</th>
+          <th class="total-header">Snippets</th>
+          <th class="link-header">
+            <%= image_tag 'github_icon_mini.png', :class => 'pic img-circle github-mini', :alt => 'GitHub.com' %>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody id="users">
+        <!-- Users go here -->
+        </tbody>
+      </table>
+    </div>
+
+    <% if @users.next_page %>
+        <div id="infinite-scrolling">
+          <%= will_paginate %>
+        </div>
+    <% end %>
+<% else %>
+    <em>No users found.</em>
+    <p>Want to be first? Login through your
+        <%= image_tag 'github_icon_mini.png', :class => 'pic img-circle github-mini', :alt => 'GitHub.com' %>
+        account <a href="/auth/github/" class="btn btn-primary btn-xs">NOW!</a>
+    </p>
+<% end %>
+
+<%= javascript_tag do %>
+    var delimiter = $('<div class="page-delimiter first-page" data-page="<%= params[:page] %>"></div>');
+    $('#users').append(delimiter);
+    $('#users').append('<%= j render @users %>');
+<% end %>

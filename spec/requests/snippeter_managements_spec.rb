@@ -8,7 +8,7 @@ feature "Snippeter management" do
     page.should have_content 'No snippets found.'
   end
 
-  scenario "User visits `recent snippets` page, and founds 3 snippets", :js => true, :fill => true do
+  scenario "User visits `recent snippets` page, and founds 3 snippets", :js => true do
     @lang = FactoryGirl.create(:lang)
     3.times { @snippet = FactoryGirl.create(:snippet, lang: @lang) }
 
@@ -49,6 +49,24 @@ feature "Snippeter management" do
           expect(find(:css, '.label-username')).to have_content @userAuth['info']['nickname']
         end
       end
+    end
+  end
+end
+
+describe "Users page" do
+  before :each do
+    if example.metadata[:clean_db]
+      ActiveRecord::Base.subclasses.each(&:delete_all)
+    end
+
+    visit users_path
+  end
+
+  context "Someone visits page with no users", :js => true, :clean_db => true do
+    it "should have valid information & login link" do
+      expect(page).to have_content 'No users found.'
+      expect(find :css, '.pic.img-circle.github-mini')
+      expect(page).to have_link 'NOW!'
     end
   end
 end
