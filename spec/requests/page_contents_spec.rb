@@ -122,7 +122,7 @@ describe "Login on main page" do
         click_button 'Update Snippet'
       end
 
-      it "should return redirect to edited snippet page", :js => true do
+      it "should return redirect to edited snippet page" do
         expect(current_path).to eq(snippet_path(@snippet.id))
       end
 
