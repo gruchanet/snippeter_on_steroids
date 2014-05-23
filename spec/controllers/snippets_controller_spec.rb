@@ -2,13 +2,9 @@ require 'spec_helper'
 
 describe SnippetsController do
   before :each, :auth => true do
-    request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
     session[:user_id].should be_nil
-
-    #Authentication
-    auth = request.env["omniauth.auth"]
-    @user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-    session[:user_id] = @user.id
+    request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
+    session[:user_id] = 1
   end
 
   context "#index" do
@@ -60,7 +56,7 @@ describe SnippetsController do
   context "#create" do
     before :each do
       lang = FactoryGirl.create(:lang)
-      @snippet = FactoryGirl.create(:snippet, lang: lang)
+      @snippet = FactoryGirl.create(:snippet, lang: lang, :user_id => 1)
     end
 
     context "With valid attributes" do
@@ -111,7 +107,7 @@ describe SnippetsController do
     context "With valid attributes" do
       before :each do
         lang = FactoryGirl.create(:lang)
-        @snippet = FactoryGirl.create(:snippet, :lang => lang, :user => @user)
+        @snippet = FactoryGirl.create(:snippet, :lang => lang, :user_id => 1)
 
         get :edit, :id => @snippet.id
       end
@@ -139,7 +135,7 @@ describe SnippetsController do
   context "#update" do
     before :each do
       lang = FactoryGirl.create(:lang)
-      @snippet = FactoryGirl.create(:snippet, :lang => lang, :user => @user)
+      @snippet = FactoryGirl.create(:snippet, :lang => lang, :user_id => 1)
     end
 
     context "With valid attributes" do
@@ -197,7 +193,7 @@ describe SnippetsController do
 
   context "#destroy" do
     before :each do
-      @snippet = FactoryGirl.create(:snippet, :user => @user)
+      @snippet = FactoryGirl.create(:snippet, :user_id => 1)
 
       unless example.metadata[:skip_before]
         get :destroy, :id => @snippet.id

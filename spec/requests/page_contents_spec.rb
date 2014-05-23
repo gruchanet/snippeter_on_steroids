@@ -63,7 +63,7 @@ describe "Login on main page" do
     it "should render alert and put corrent informations into nav" do
       expect(find(:css, '.alert.alert-info')).to have_content 'Signed in!'
       page.should have_content 'Logged as'
-      page.should have_xpath "//a[@href='#{user_snippets_path @user.id}']/img[@class='pic img-circle user-gravatar']"
+      page.should have_xpath "//a[@href='#{user_snippets_path 1}']/img[@class='pic img-circle user-gravatar']"
       page.should have_link 'Logout'
     end
   end
@@ -106,7 +106,7 @@ describe "Login on main page" do
   context "updating snippet" do
     before :each do
       @lang = FactoryGirl.create(:ruby_lang)
-      @snippet = FactoryGirl.create(:snippet, :user => @user)
+      @snippet = FactoryGirl.create(:snippet, :user_id => 1)
 
       visit edit_snippet_path(@snippet.id)
     end
@@ -157,7 +157,7 @@ describe "Login on main page" do
   context "deleting snippet" do
     before :each do
       @lang = FactoryGirl.create(:ruby_lang)
-      @snippet = FactoryGirl.create(:snippet, :user => @user)
+      @snippet = FactoryGirl.create(:snippet, :user_id => 1)
 
       visit snippet_path(@snippet.id)
 

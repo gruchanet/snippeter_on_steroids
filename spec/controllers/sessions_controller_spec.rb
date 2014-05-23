@@ -2,19 +2,17 @@ require 'spec_helper'
 
 describe SessionsController do
 
-  #Adds authentication parameters, to run create
-  before do
+  # Adds authentication parameters, to run create
+  before :each do
+    ActiveRecord::Base.subclasses.each(&:delete_all)
     request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
   end
 
   describe "#create" do
 
-    it "should create user" do
-      count = User.count
-      #Sends post request for create action
-      post :create, provider: :github
-      #expects there will be one more than before
-      expect(User.count).to eq(count+1)
+    it "should create user, but not twice" do
+      expect { post :create, :provider => :github }.to change(User, :count).by 1
+      expect { post :create, :provider => :github }.to change(User, :count).by 0
     end
 
     it "should create session" do
@@ -33,7 +31,7 @@ describe SessionsController do
 
   describe "#destroy" do
 
-    before do
+    before :each do
       post :create, provider: :github
     end
 

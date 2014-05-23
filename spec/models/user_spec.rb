@@ -10,7 +10,7 @@ describe User do
 
     context "takes user parameters" do
       before :each do
-        auth = FactoryGirl.build(:user)
+        auth = OmniAuth.config.mock_auth[:github]
         @user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
       end
 

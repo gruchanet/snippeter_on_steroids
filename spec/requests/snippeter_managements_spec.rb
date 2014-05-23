@@ -44,7 +44,7 @@ feature "Snippeter management" do
   #    scenario "snippets page should show user avatar, label with username and link to his page in correct table row", :js => true do
   #      visit snippets_path
   #
-  #      within(:xpath, "//tbody[@id='snippets']/tr[@class='row-link']/td[@class='author-notion']/a[@class='profile-link' and @href='#{user_path(1)}']") do
+  #      within(:xpath, "//tbody[@id='snippets']/tr[@class='row-link']/td[@class='author-notion']/a[@class='profile-link' and @href='#{user_snippets_path(1)}']") do
   #        should have_css 'img.pic.img-circle'
   #        expect(find(:css, '.label-username')).to have_content @userAuth['info']['nickname']
   #      end
