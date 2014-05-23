@@ -1,23 +1,39 @@
 <tr class="row-link" data-link="<%= snippet_path(snippet) %>">
   <td class="toggle-notion"><a class="collapser collapsed" data-toggle="collapse" data-target="#snippet-<%= snippet.id %>"><span class="glyphicon glyphicon-circle-arrow-up"></span></a></td>
+  <% unless @hide_author %>
+  <td class="author-notion">
+    <% if snippet.user %>
+    <a class="profile-link" href="<%= user_snippets_path(snippet.user) %>">
+        <img class="pic img-circle"
+             data-toggle="tooltip" data-placement="bottom"
+             src="<%= gravatar_url(snippet.user.email, 30) %>">
+        <span class="label label-primary label-username"><%= snippet.user.name %></span>
+    </a>
+    <% end %>
+  </td>
+  <% end %>
   <td class="lang-notion"><%= snippet.lang.name %></td>
   <td><%= snippet.description %></td>
   <td><%= snippet.updated_at.in_time_zone('Warsaw').to_formatted_s(:rfc822) %></td>
+  <% if @render_buttons && session[:user_id] %>
   <td class="centered">
-    <%= link_to edit_snippet_path(snippet), class: 'btn btn-edit fullsized' do %>
+    <%= link_to edit_snippet_path(snippet), class: 'btn btn-edit fullsized',
+                :disabled => snippet.user_id != session[:user_id] ? true : false do %>
         <span class="glyphicon glyphicon-pencil"></span>
     <% end %>
   </td>
   <td class="centered">
-    <%= link_to snippet, method: :delete, data: { confirm: 'Do you really want to delete this snippet?' }, class: 'btn btn-remove fullsized' do %>
+    <%= link_to snippet, method: :delete, data: { confirm: 'Do you really want to delete this snippet?' },
+                class: 'btn btn-remove fullsized', :disabled => snippet.user_id != session[:user_id] ? true : false do %>
         <span class="glyphicon glyphicon-remove"></span>
     <% end %>
   </td>
+  <% end %>
 </tr>
 <tr class="snippet-showcase">
-  <td colspan="6" class="snippet-notion">
+  <td colspan="7" class="snippet-notion">
     <div id="snippet-<%= snippet.id %>" class="snippet-container collapse out">
-      <%= raw Pygments.highlight(snippet.snippet, lexer: snippet.lang.value.downcase) %>
+      <%= raw Pygments.highlight(snippet.snippet, lexer: snippet.lang.value.downcase, :options => { :linenos => true }) %>
     </div>
   </td>
 </tr>

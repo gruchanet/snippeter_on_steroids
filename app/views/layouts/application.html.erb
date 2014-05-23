@@ -30,10 +30,11 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="<%= 'active' if current_page?(snippets_path) %>"><a href="/snippets">Recent Snippets</a></li>
-          <li class="<%= 'active' if current_page?(snippets_search_path) %>"><a href="/snippets/search">Search</a></li>
+          <li class="<%= 'active' if current_page?(snippets_path) %>"><a href="<%= snippets_path %>">Snippets</a></li>
+          <li class="<%= 'active' if current_page?(users_path) %>"><a href="<%= users_path %>">Users</a></li>
+          <li class="<%= 'active' if current_page?(snippets_search_path) %>"><a href="<%= snippets_search_path %>">Search</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right navbar-second-part">
           <% if !session[:user_id] %>
               <li>
                 <a href="/auth/github/" class="github-login" data-toggle="tooltip" data-placement="bottom">
@@ -43,7 +44,7 @@
           <% else %>
               <li>
                 <label class="navbar-text">Logged as
-                  <a href="http://github.com/<%= session[:user_name] %>" target="_blank">
+                  <a href="<%= user_snippets_path session[:user_id] %>">
                     <img class="pic img-circle user-gravatar"
                          data-toggle="tooltip" data-placement="bottom" title="<%= session[:user_name] %>"
                          src="<%= gravatar_url(session[:user_email], 20) %>">
@@ -52,7 +53,7 @@
               </li>
               <li><a href="/signout"><b>Logout</b></a></li>
           <% end %>
-          <li class="<%= 'active' if current_page?(about_path) %>"><a href="/about">Authors</a></li>
+          <li class="<%= 'active' if current_page?(about_path) %>"><a href="<%= about_path %>">Authors</a></li>
         </ul>
       </div>
     </div>
