@@ -21,3 +21,7 @@
 /* Ignore temporary files
 *~
 ~*
+
+/* Ignore DBs
+/db/development.sqlite3
+/db/test.sqlite3
