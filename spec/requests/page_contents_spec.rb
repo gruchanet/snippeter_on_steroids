@@ -26,6 +26,14 @@ describe "Menu content" do
   it { should have_link('Search', href: snippets_search_path) }
   it { should have_link('Authors', href: about_path) }
   it { should have_link('Login', href: '/auth/github/') }
+
+  it "should have correct title" do
+    should have_title("Snippeter App")
+  end
+
+  it "should have correct header" do
+    page.should have_selector 'h1', text: 'Welcome to Snippeter'
+  end
 end
 
 describe "Main page" do
@@ -44,12 +52,21 @@ describe "Main page" do
   end
 
   it "should have title in h1 selector" do
-      visit root_path
-      page.should have_selector("h1", text: "Welcome to Snippeter")
-    end
+    visit root_path
+    page.should have_selector("h1", text: "Welcome to Snippeter")
+  end
+end
+
+describe "Search page" do
+  before :each do
+    visit snippets_search_path
   end
 
-
+  it "should have valid `Filters` button" do
+    expect( find(:css, '.btn.btn-primary') ).to have_content 'Filters'
+    should have_selector 'span'
+  end
+end
 
 describe "Login on main page" do
   before :each do
@@ -58,6 +75,29 @@ describe "Login on main page" do
 
     visit root_path
     click_link 'Login'
+  end
+
+  it "should correctly relogin" do
+    click_link 'Logout'
+    click_link 'Login'
+    page.should have_content 'Signed in!'
+  end
+
+  it "has valid title after multiclicking" do
+    20.times do
+      click_link 'Snippets'
+      click_link 'Users'
+      click_link 'Authors'
+      click_link 'Search'
+    end
+    should have_title("Snippeter App | Search snippets")
+    page.should have_selector 'h1', text: 'Search snippets'
+  end
+
+  it "random link clicking" do
+    20.times do
+      click_link ['Snippets','Users','Authors','Search'].sample
+    end
   end
 
   context "Go to main page" do
@@ -228,21 +268,20 @@ describe "Recent snippet" do
 
   it "should have page title" do
     within(:css, '.container .page-header') {
-	expect has_content?("Recent snippets")
+	    expect has_content?("Recent snippets")
     }
   end
 
   it "should have add new snippet button" do
     within(:css, '.container .page-header') {
-	expect(find(:css, '.btn')). has_content? 'New Snippet'
+	    expect(find(:css, '.btn')). has_content? 'New Snippet'
     }
   end
-#paginacja, tabela, poojedynczy snippet should have_selector("h2", text: "Snippeter just for YOU!")
 
-  it "should have paggination" do
-   within(:css, '.container #static-pagination') do
+  it "should have pagination" do
+    within(:css, '.container #static-pagination') do
     	expect has_selector?("a", text: "← Previous")
-	expect has_selector?("a", text: "Next →")
+	    expect has_selector?("a", text: "Next →")
     end
   end
 end

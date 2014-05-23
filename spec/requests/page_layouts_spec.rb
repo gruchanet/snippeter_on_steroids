@@ -14,4 +14,12 @@ describe "About page layout" do
       should have_css 'span.s2'
     end
   end
+
+  it "should have correct title" do
+    should have_title("Snippeter App | About")
+  end
+
+  it "should have correct header" do
+    page.should have_selector 'h1', text: 'Authors'
+  end
 end
