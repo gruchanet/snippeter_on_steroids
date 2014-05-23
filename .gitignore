@@ -22,9 +22,5 @@
 *~
 ~*
 
-/* Ignore DBs
-/db/development.sqlite3
-/db/test.sqlite3
-
 /* Ignore secret keys
 /config/secrets.yml

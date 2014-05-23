@@ -2,7 +2,7 @@
   <td class="author-notion">
     <img class="pic img-circle"
        data-toggle="tooltip" data-placement="bottom"
-       src="<%= gravatar_url(user.email, 30) %>">
+       src="<%= github_avatar(user.uid, 30) %>" style="width: 30px;">
     <span class="label label-primary label-username"><%= user.name %></span>
   </td>
   <td class="creation-notion"><%= user.created_at.in_time_zone('Warsaw').to_formatted_s(:rfc822) %></td>

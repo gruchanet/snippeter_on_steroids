@@ -9,3 +9,10 @@
 </div>
 
 <%= render 'form' %>
+
+<%#= javascript_include_tag 'ace-editor/ace' %>
+<%= javascript_tag do %>
+    <!--var editor = ace.edit("editor");-->
+    <!--editor.setTheme("ace/theme/default");-->
+    <!--editor.getSession().setMode("ace/mode/javascript");-->
+<% end %>

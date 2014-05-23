@@ -47,7 +47,7 @@
                   <a href="<%= user_snippets_path session[:user_id] %>">
                     <img class="pic img-circle user-gravatar"
                          data-toggle="tooltip" data-placement="bottom" title="<%= session[:user_name] %>"
-                         src="<%= gravatar_url(session[:user_email], 20) %>">
+                         src="<%= github_avatar(session[:user_uid], 20) %>" style="width: 20px;">
                   </a>
                 </label>
               </li>

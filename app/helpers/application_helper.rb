@@ -25,4 +25,8 @@ module ApplicationHelper
     
     "http://gravatar.com/avatar/#{gravatar_id}.png?d=#{defaultImage}&s=#{size}"
   end
+
+  def github_avatar(uid, size)
+    "https://avatars.githubusercontent.com/u/#{uid}?s=#{size}"
+  end
 end

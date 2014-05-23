@@ -6,7 +6,7 @@
     <a class="profile-link" href="<%= user_snippets_path(snippet.user) %>">
         <img class="pic img-circle"
              data-toggle="tooltip" data-placement="bottom"
-             src="<%= gravatar_url(snippet.user.email, 30) %>">
+             src="<%= github_avatar(snippet.user.uid, 20) %>" style="width: 20px;">
         <span class="label label-primary label-username"><%= snippet.user.name %></span>
     </a>
     <% end %>

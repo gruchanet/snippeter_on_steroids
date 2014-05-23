@@ -1,7 +1,7 @@
 <div class="profile-container">
   <img class="pic img-circle"
        data-toggle="tooltip" data-placement="bottom"
-       src="<%= gravatar_url(@user.email, 80) %>">
+       src="<%= github_avatar(@user.uid, 80) %>" style="width: 80px;">
   <p class="label label-primary label-username-page"><%= @user.name %></p>
 </div>
 

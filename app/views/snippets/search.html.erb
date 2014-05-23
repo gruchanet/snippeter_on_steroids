@@ -16,6 +16,10 @@
 
     <dt>Description:</dt>
     <dd><%= text_field_tag 'description', nil, :placeholder => 'Description contains...', :class => 'form-control' %></dd>
+    <dt>User:</dt>
+    <dd><%= collection_select :user, :id, User.order(:name), :uid, :name,
+                              {:prompt => '-- Search for a user --'},
+                              {:name => 'user_id', :class => 'form-control'} %></dd>
 
     <!--<dt>Creation date:</dt>-->
     <!--<dd></dd>-->
@@ -37,5 +41,17 @@
     $(document).ready(function () {
         // Enable Select2 on 'lang' combobox
         $("dd").find("select#lang_id").select2();
+        $("dd").find("select#user_id").select2({
+            formatResult: get_avatar,
+            formatSelection: get_avatar,
+            escapeMarkup: function(m) { return m; }
+        });
     });
+
+    function get_avatar(user) {
+        if (!user.id) return user.text; // optgroup
+
+        var size = 20;
+        return '<img class="pic img-circle user-avatar" src="https://avatars.githubusercontent.com/u/' + user.id + '?s=' + size + '"> ' + user.text;
+    }
 <% end %>
