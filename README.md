@@ -64,9 +64,6 @@
 * #### Simplier form syntax
     gem 'simple_form', '~> 3.0.1'
 
-* #### Simplier form syntax
-    gem 'simple_form', '~> 3.0.1'
-
 ### New gems
 
 * #### Authentication system for GitHub
@@ -76,7 +73,7 @@
     gem 'thin'
 
 
-#### For testing purposes
+### For testing purposes
 
 * #### Friendly testing framework
     gem 'rspec-rails'
