@@ -126,7 +126,7 @@
 
 ### New features
 
-* <i>Application <b>deeply</b> tested!</i>
+* <i>Application <b>deeply</b> tested</i> (87 examples)!
 
 * <i>User account system</i> - using a provider authentication, saves some informations to <b>database</b>
 
