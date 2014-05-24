@@ -36,62 +36,64 @@
 ## Used gems
 ### Previously
 * #### Generic syntax highlighter
-    gem 'pygments.rb', '0.5.4'
+    <pre>gem 'pygments.rb', '0.5.4'</pre>
 
 * #### Markdown parser "Redcarpet is Ruby library for Markdown processing that smells like butterflies and popcorn."
-    gem 'redcarpet', '3.1.1'
-    gem 'sass-rails', '~> 4.0.1'
+    <pre>gem 'redcarpet', '3.1.1'</pre>
+
+* #### Rails integration with Sass"
+    <pre>gem 'sass-rails', '~> 4.0.1'</pre>
 
 * #### Bootstrap - front-end framework
-    gem 'bootstrap-sass', '~> 3.1.1'
+    <pre>gem 'bootstrap-sass', '~> 3.1.1'</pre>
 
 * #### Nice bootstrap template generator
-    gem 'bootstrap-generators', '~> 3.1.1'
+    <pre>gem 'bootstrap-generators', '~> 3.1.1'</pre>
 
 * #### CSS Animation
-    gem 'animate-scss' # gem 'animate-rails'
+    <pre>gem 'animate-scss' # gem 'animate-rails'</pre>
 
 * #### Paginator
-    gem 'will_paginate', '~> 3.0.5'
-    gem 'bootstrap-will_paginate', '~> 0.0.10'
+    <pre>gem 'will_paginate', '~> 3.0.5'</pre>
+    <pre>gem 'bootstrap-will_paginate', '~> 0.0.10'</pre>
 
 * #### Filter scopes
-    gem 'has_scope', '~> 0.5.1'
+    <pre>gem 'has_scope', '~> 0.5.1'</pre>
 
 * #### Combobox overlay
-    gem 'select2-rails', '~> 3.5.4'
+    <pre>gem 'select2-rails', '~> 3.5.4'</pre>
 
 * #### Simplier form syntax
-    gem 'simple_form', '~> 3.0.1'
+    <pre>gem 'simple_form', '~> 3.0.1'</pre>
 
 ### New gems
 
 * #### Authentication system for GitHub
-    gem 'omniauth-github', '1.1.1'
+    <pre>gem 'omniauth-github', '1.1.1'</pre>
 
 * #### "A thin and fast web server"
-    gem 'thin'
+    <pre>gem 'thin'</pre>
 
 
 ### For testing purposes
 
 * #### Friendly testing framework
-    gem 'rspec-rails'
+    <pre>gem 'rspec-rails'</pre>
 
 * #### Testing tool for simulating user interaction with website
-    gem 'capybara', '~> 2.2.1'
+    <pre>gem 'capybara', '~> 2.2.1'</pre>
 
 * #### Automatic & easier definition loading
-    gem 'factory_girl_rails', '~> 4.4.1'
+    <pre>gem 'factory_girl_rails', '~> 4.4.1'</pre>
 
 * #### Database cleaner
-    gem 'database_cleaner'
+    <pre>gem 'database_cleaner'</pre>
 
 * #### Selenium driver (for automatic tests)
-    gem 'selenium-webdriver', '~> 2.41.0'
+    <pre>gem 'selenium-webdriver', '~> 2.41.0'</pre>
 
 * #### Helper for Select2 dropdown
-    gem 'capybara-select2'
+    <pre>gem 'capybara-select2'</pre>
 
 
 ## Features
